@@ -211,6 +211,16 @@ export {
   setVisibleWhen,
   updatePlaced,
 } from './v2/ops'
+export {
+  startFlow,
+  runChain,
+  currentScreenId,
+  missingFields,
+  visiblePages,
+  screenVisible,
+  flowProgress,
+} from './v2/runtime'
+export type { FlowState, FlowHost, FlowStop, FlowResult, FlowInput, HostResult } from './v2/runtime'
 export { validateScreenDocument } from './v2/validate'
 export type { ScreenIssue, ValidateOptions } from './v2/validate'
 export { MESSAGES_KO, CATALOGS, issueMessage } from './v2/messages'

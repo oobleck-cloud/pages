@@ -2,7 +2,14 @@ import { workstylePack } from '@oobleck/pages'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import { defineScreenKit, ScreenView, type InstanceProps, type ScreenRuntime } from './index'
+import {
+  defineScreenKit,
+  ScreenFlowView,
+  ScreenView,
+  useScreenFlow,
+  type InstanceProps,
+  type ScreenRuntime,
+} from './index'
 import { workstyleScreenKit } from './workstyle'
 
 import type { FrameNode, Screen, ScreenDocument } from '@oobleck/pages'
@@ -204,5 +211,37 @@ describe('ScreenView — 부품 연결', () => {
       />,
     )
     expect(answers).toEqual([])
+  })
+})
+
+describe('흐름 뷰', () => {
+  const host = { submit: () => Promise.resolve({ ok: true as const }) }
+  const sheet: Screen = { ...screen, id: 's1', name: '시트', role: 'sheet', frame: frame([]) }
+  const flowDoc: ScreenDocument = { ...doc, screens: [screen, sheet] }
+
+  function Harness({ sheets }: { sheets?: string[] }) {
+    const flow = useScreenFlow({ doc: flowDoc, packs: [workstylePack], host })
+    const shown = sheets
+      ? {
+          ...flow,
+          sheets: flowDoc.screens.filter((s) => sheets.includes(s.id)),
+          state: { ...flow.state, sheets },
+        }
+      : flow
+    return <ScreenFlowView flow={shown} kits={[workstyleScreenKit]} ctx={{}} />
+  }
+
+  it('첫 보이는 장에서 시작한다', () => {
+    const html = renderToStaticMarkup(<Harness />)
+    expect(html).toContain('data-flow-screen="p1"')
+    expect(html).toContain('data-screen="p1"')
+    expect(html).not.toContain('role="dialog"')
+  })
+
+  it('시트는 장 위에 대화 상자로 뜬다', () => {
+    const html = renderToStaticMarkup(<Harness sheets={['s1']} />)
+    expect(html).toContain('data-flow-screen="s1"')
+    expect(html).toContain('role="dialog"')
+    expect(html).toContain('data-screen="s1"')
   })
 })

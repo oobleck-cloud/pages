@@ -156,6 +156,8 @@ export function screenFields(
   doc: ScreenDocument,
   screen: Screen,
   answers: CampaignAnswers,
+  /** 조건식이 읽는 상태 — 없으면 답만(계산값 · 호스트 변수 없이). */
+  scope: ExprScope = { answers, fields: answers },
 ): Field[] {
   const fields = new Map(doc.fields.map((f) => [f.key, f]))
   const seen = new Set<string>()
@@ -164,7 +166,7 @@ export function screenFields(
     if (!f || seen.has(f.key)) return []
     const shown = conditions.every((e) => {
       try {
-        return evaluateCondition(e, { answers, fields: answers })
+        return evaluateCondition(e, scope)
       } catch {
         return false
       }

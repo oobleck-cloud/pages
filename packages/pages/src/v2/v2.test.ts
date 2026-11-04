@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { definePack } from '../assets'
 import { workstylePack } from '../packs/workstyle'
 import { planActions } from './actions'
+import { flowProgress, runChain, startFlow } from './runtime'
 import { fieldAnswered, fieldText, formOf, scopeOf, screenFields } from './form'
 import { issueMessage, MESSAGES_KO } from './messages'
 import {
@@ -21,6 +22,8 @@ import { findNode, parseScreenDocument } from './screen'
 import { validateScreenDocument } from './validate'
 
 import type { AssetPack } from '../assets'
+import type { Action } from './actions'
+import type { FlowHost } from './runtime'
 import type { FrameNode, ScreenDocument } from './screen'
 
 /** 시험용 팩 — 코어는 캠페인을 모른다. Workstyle 부품 + 값 종류 하나(별점) + 화면 틀 하나. */
@@ -378,5 +381,113 @@ describe('검증', () => {
     expect(issueMessage({ code: 'bind-unknown', params: { field: 'q9' } }, 'en')).toBe(
       '필드 「q9」가 없어요',
     )
+  })
+})
+
+describe('v2 런타임 — 동작 체인', () => {
+  const calls: string[] = []
+  const host: FlowHost = {
+    save: () => (calls.push('save'), Promise.resolve({ ok: true })),
+    action: (name) => (
+      calls.push(`host:${name}`),
+      Promise.resolve(name === 'fail' ? { ok: false, error: '안 됨' } : { ok: true })
+    ),
+    open: (href) => calls.push(`open:${href}`),
+    submit: () => (calls.push('submit'), Promise.resolve({ ok: true })),
+  }
+  const input = (answers: Record<string, unknown> = {}) => ({ doc: doc(), packs: PACKS, answers })
+  const press = (answers: Record<string, unknown>, state = startFlow(input(answers))) =>
+    runChain(input(answers), state, [{ do: 'validate' }, { do: 'next' }], host)
+
+  it('첫 장에서 시작하고, 꼭 답할 필드가 비면 검증에서 멈춘다', async () => {
+    const s = startFlow(input())
+    expect(s).toEqual({ stack: ['p1'], sheets: [], submitted: false })
+    const r = await press({})
+    expect(r.stop).toEqual({ reason: 'invalid', screen: 'p1', fields: ['size'] })
+    expect(r.state.stack).toEqual(['p1'])
+    expect(flowProgress(input(), s)).toEqual({ index: 1, total: 2 })
+  })
+
+  it('답하면 다음 장, 마지막 장의 다음은 보내기 → 보낸 뒤 화면', async () => {
+    const a = { size: 's' }
+    const r1 = await press(a)
+    expect(r1.stop).toBeUndefined()
+    expect(r1.state.stack).toEqual(['p1', 'p2'])
+    calls.length = 0
+    const r2 = await press(a, r1.state)
+    expect(calls).toEqual(['submit'])
+    expect(r2.state).toEqual({ stack: ['done'], sheets: [], submitted: true })
+  })
+
+  it('보내기는 빈 꼭 답할 필드가 있는 장으로 되돌리고 멈춘다', async () => {
+    calls.length = 0
+    const r = await runChain(
+      input(),
+      { stack: ['p1', 'p2'], sheets: [], submitted: false },
+      [{ do: 'submit' }],
+      host,
+    )
+    expect(r.stop).toEqual({ reason: 'invalid', screen: 'p1', fields: ['size'] })
+    expect(r.state.stack).toEqual(['p1'])
+    expect(calls).toEqual([])
+  })
+
+  it('시트 · 바꾸기 · 뒤로', async () => {
+    const a = { size: 's' }
+    const s0 = startFlow(input(a))
+    const r1 = await runChain(input(a), s0, [{ do: 'go', to: 'p2', mode: 'sheet' }], host)
+    expect(r1.state).toMatchObject({ stack: ['p1'], sheets: ['p2'] })
+    const r2 = await runChain(input(a), r1.state, [{ do: 'back' }], host)
+    expect(r2.state).toMatchObject({ stack: ['p1'], sheets: [] })
+    const r3 = await runChain(input(a), s0, [{ do: 'go', to: 'p2', mode: 'replace' }], host)
+    expect(r3.state.stack).toEqual(['p2'])
+    const r4 = await runChain(input(a), r3.state, [{ do: 'back' }], host)
+    expect(r4.state.stack).toEqual(['p2'])
+  })
+
+  it('호스트 동작 · 저장 · 열기를 차례대로, 실패하면 거기서 멈춘다', async () => {
+    calls.length = 0
+    const r = await runChain(
+      input(),
+      startFlow(input()),
+      [
+        { do: 'save' },
+        { do: 'open', href: 'https://x' },
+        { do: 'host', name: 'fail' },
+        { do: 'host', name: 'never' },
+      ],
+      host,
+    )
+    expect(calls).toEqual(['save', 'open:https://x', 'host:fail'])
+    expect(r.stop).toEqual({ reason: 'host', action: 'fail', error: '안 됨' })
+    const none = await runChain(input(), startFlow(input()), [{ do: 'host', name: 'sms' }], {
+      submit: host.submit,
+    })
+    expect(none.stop).toMatchObject({ reason: 'host', action: 'sms' })
+  })
+
+  it('분기는 계산값을 읽고, 숨은 화면으로 가면 다음 장', async () => {
+    const chain: Action[] = [
+      {
+        do: 'branch',
+        when: [{ if: { var: 'computed.big' }, then: [{ do: 'go', to: 'done', mode: 'push' }] }],
+        else: [{ do: 'host', name: 'small' }],
+      },
+    ]
+    calls.length = 0
+    const small = await runChain(input({ size: 's' }), startFlow(input()), chain, host)
+    expect(calls).toEqual(['host:small'])
+    expect(small.state.stack).toEqual(['p1'])
+    const big = await runChain(input({ size: 'l' }), startFlow(input()), chain, host)
+    expect(big.state.stack).toEqual(['p1', 'done'])
+    const d = doc()
+    d.screens[1] = { ...d.screens[1]!, visibleWhen: { '==': [1, 2] } }
+    const hidden = await runChain(
+      { doc: d, packs: PACKS, answers: { size: 's' } },
+      startFlow(input()),
+      [{ do: 'go', to: 'p2', mode: 'push' }],
+      host,
+    )
+    expect(hidden.state).toMatchObject({ stack: ['done'], submitted: true })
   })
 })

@@ -35,7 +35,6 @@ oobleck 공용 SPA 화면 빌더. 장 · 시트 · 흐름으로 된 화면을 �
 import '@oobleck/workstyle/react.css'
 import { BlockList, LayoutScreen } from '@oobleck/pages-views'
 import { workstyleBlockKit, workstyleKit } from '@oobleck/pages-views/workstyle'
-
 ;<div className="ws-scope">
   <LayoutScreen root={page.layout} kit={workstyleKit} ctx={ctx} fit />
   <BlockList blocks={page.blocks} kit={workstyleBlockKit} ctx={ctx} align={page.align} />

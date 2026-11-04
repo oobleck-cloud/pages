@@ -9,8 +9,8 @@
  *
  * 평가는 순수하다 — 전역·DOM·네트워크에 접근하지 않으며 입력 스코프만 읽는다.
  *
- * 출처: MVOS `@mvos/flow-engine` 의 expr.ts 를 그대로 옮겼다(oobleck 패키지는 MVOS 를 모른다). 장 · 블록 조건과 앞으로의
- * SPA 런타임이 같은 식을 쓴다. 고칠 때는 두 곳의 평가 결과가 갈리지 않게 한다.
+ * 출처: MVOS `@mvos/flow-engine` 에서 옮겨 왔다(oobleck 패키지는 MVOS 를 모른다). 이제 이곳이 원본이다 —
+ * 장 · 블록 조건, SPA 런타임, MVOS 플로 엔진이 모두 `@oobleck/pages/expr` 로 같은 식을 쓴다.
  */
 
 import { z } from 'zod'

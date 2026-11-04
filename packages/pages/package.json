@@ -6,6 +6,7 @@
   "description": "헤드리스 SPA 화면(장 · 시트 · 흐름) 문서. React와 디자인 시스템을 모른다.",
   "exports": {
     ".": "./src/index.ts",
+    "./expr": "./src/expr.ts",
     "./fixtures/*": "./src/__fixtures__/*"
   },
   "types": "./src/index.ts",

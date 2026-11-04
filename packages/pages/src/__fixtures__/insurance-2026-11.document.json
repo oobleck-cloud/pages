@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 1,
+  "pages": [
+    {
+      "id": "cover",
+      "name": "표지",
+      "numbered": false,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "text",
+          "lines": ["이사 다- 끝났는데 TV 패널이 나가서"],
+          "tone": "subtle"
+        },
+        {
+          "id": "b2",
+          "type": "image",
+          "image": {
+            "src": "/campaign/insurance-2026-11/hero-brush.webp",
+            "alt": "돈 날리는 경험",
+            "width": 345,
+            "height": 88
+          }
+        },
+        {
+          "id": "b3",
+          "type": "text",
+          "lines": ["더 이상 하지 않도록", "미소에서 **보험**을 알아보고 있어요."],
+          "tone": "default"
+        }
+      ]
+    },
+    {
+      "id": "prepare",
+      "name": "보험을 준비하기까지",
+      "numbered": false,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b4",
+          "type": "image",
+          "image": {
+            "src": "/campaign/insurance-2026-11/shield.webp",
+            "alt": "",
+            "width": 98,
+            "height": 95
+          }
+        },
+        {
+          "id": "b5",
+          "type": "heading",
+          "lines": ["미소에서 보험을 준비하기까지"],
+          "size": "lg"
+        },
+        {
+          "id": "b6",
+          "type": "text",
+          "lines": [
+            "많은 사람을 설득하고",
+            "보험사와 논의하고",
+            "보험이 만들어지기까지",
+            "",
+            "많은 불확실한 과정들이 필요해요."
+          ],
+          "tone": "default"
+        }
+      ]
+    },
+    {
+      "id": "voice",
+      "name": "의견이 필요해요",
+      "numbered": false,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b7",
+          "type": "image",
+          "image": {
+            "src": "/campaign/insurance-2026-11/miso-mover.webp",
+            "alt": "",
+            "width": 95,
+            "height": 111
+          }
+        },
+        {
+          "id": "b8",
+          "type": "heading",
+          "lines": ["파트너분들의 의견이 필요해요"],
+          "size": "lg"
+        },
+        {
+          "id": "b9",
+          "type": "text",
+          "lines": [
+            "오늘은 그 첫 단계예요",
+            "",
+            "지금 이미 보험이 있는지",
+            "보험에 단체 가입하실 의사가 있는지",
+            "",
+            "파트너님들의 불편을",
+            "더 잘 듣고 싶어요"
+          ],
+          "tone": "default"
+        },
+        {
+          "id": "b10",
+          "type": "chip",
+          "text": "2분이면 끝나요"
+        }
+      ],
+      "cta": "질문 시작하기"
+    },
+    {
+      "id": "liability",
+      "name": "영업배상",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b11",
+          "type": "question",
+          "question": {
+            "key": "liability",
+            "kind": "choice",
+            "label": "영업배상책임보험에\n들어 계세요?",
+            "short": "영업배상",
+            "hint": "작업 중 고객 집·건물에 낸 사고를 물어 줘요",
+            "required": true,
+            "layout": "row",
+            "options": [
+              {
+                "value": "yes",
+                "label": "들었어요"
+              },
+              {
+                "value": "no",
+                "label": "안 들었어요"
+              },
+              {
+                "value": "unknown",
+                "label": "모르겠어요",
+                "minor": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cargo",
+      "name": "적재물",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b12",
+          "type": "question",
+          "question": {
+            "key": "cargo",
+            "kind": "choice",
+            "label": "적재물배상책임보험에\n들어 계세요?",
+            "short": "적재물",
+            "hint": "옮기던 짐이 깨지거나 없어지면 물어 줘요",
+            "required": true,
+            "layout": "row",
+            "options": [
+              {
+                "value": "yes",
+                "label": "들었어요"
+              },
+              {
+                "value": "no",
+                "label": "안 들었어요"
+              },
+              {
+                "value": "unknown",
+                "label": "모르겠어요",
+                "minor": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "other-kinds",
+      "name": "그 밖의 보험",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b13",
+          "type": "question",
+          "question": {
+            "key": "otherKinds",
+            "kind": "multi",
+            "label": "그 밖에 드신 보험이\n있으세요?",
+            "short": "그 밖의 보험",
+            "hint": "여러 개 고를 수 있어요",
+            "required": true,
+            "exclusive": "none",
+            "options": [
+              {
+                "value": "freight",
+                "label": "화물공제"
+              },
+              {
+                "value": "damage",
+                "label": "파손보험"
+              },
+              {
+                "value": "surety",
+                "label": "보증보험"
+              },
+              {
+                "value": "delivery",
+                "label": "이사화물배송책임"
+              },
+              {
+                "value": "none",
+                "label": "없어요"
+              }
+            ]
+          }
+        },
+        {
+          "id": "b14",
+          "type": "question",
+          "question": {
+            "key": "otherProduct",
+            "kind": "text",
+            "label": "보험사·상품명",
+            "short": "보험사·상품",
+            "placeholder": "보험사·상품명 (알면 적어 주세요)",
+            "multiline": false,
+            "required": false,
+            "hideLabel": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "premium",
+      "name": "보험료",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b15",
+          "type": "question",
+          "question": {
+            "key": "premium",
+            "kind": "premium",
+            "label": "지금 보험료는\n얼마나 내세요?",
+            "short": "보험료",
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "claimed",
+      "name": "처리 경험",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b16",
+          "type": "question",
+          "question": {
+            "key": "claimed",
+            "kind": "choice",
+            "label": "보험으로 사고를\n처리해 보신 적 있으세요?",
+            "short": "처리 경험",
+            "required": true,
+            "layout": "row",
+            "options": [
+              {
+                "value": "yes",
+                "label": "있어요"
+              },
+              {
+                "value": "no",
+                "label": "없어요"
+              }
+            ]
+          }
+        },
+        {
+          "id": "b17",
+          "type": "question",
+          "question": {
+            "key": "claimNote",
+            "kind": "text",
+            "label": "어떤 일이었는지",
+            "short": "처리 내용",
+            "placeholder": "어떤 일이었는지 적어 주세요",
+            "multiline": true,
+            "required": false,
+            "hideLabel": true
+          },
+          "visibleWhen": {
+            "==": [
+              {
+                "var": "answers.claimed"
+              },
+              "yes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "join-intent",
+      "name": "함께 드는 보험",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b18",
+          "type": "question",
+          "question": {
+            "key": "joinIntent",
+            "kind": "choice",
+            "label": "미소와 함께 단체로 드는 보험이\n생기면 가입하실 건가요?",
+            "short": "함께 드는 보험",
+            "hint": "아직 정해진 건 없어요. 들어 볼 만한 조건을 알려 주세요.",
+            "required": true,
+            "layout": "stack",
+            "options": [
+              {
+                "value": "join",
+                "label": "들어 볼게요"
+              },
+              {
+                "value": "depends",
+                "label": "가격과 보장을 보고 정할게요"
+              },
+              {
+                "value": "no",
+                "label": "필요 없어요"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "want-premium",
+      "name": "바라는 보험료",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b19",
+          "type": "question",
+          "question": {
+            "key": "wantPremium",
+            "kind": "number",
+            "label": "한 달에 얼마면\n들어 보시겠어요?",
+            "short": "바라는 보험료(월)",
+            "placeholder": "금액",
+            "unit": "원",
+            "max": 100000000,
+            "required": false
+          }
+        },
+        {
+          "id": "b20",
+          "type": "question",
+          "question": {
+            "key": "wantNote",
+            "kind": "text",
+            "label": "이유나 바라는 보장",
+            "short": "바라는 보장",
+            "placeholder": "이유나 바라는 보장 (선택)",
+            "multiline": true,
+            "required": false,
+            "hideLabel": true
+          }
+        }
+      ],
+      "visibleWhen": {
+        "not": {
+          "==": [
+            {
+              "var": "answers.joinIntent"
+            },
+            "no"
+          ]
+        }
+      }
+    },
+    {
+      "id": "monthly-moves",
+      "name": "한 달 이사",
+      "numbered": true,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b21",
+          "type": "question",
+          "question": {
+            "key": "monthlyMoves",
+            "kind": "number",
+            "label": "한 달에 이사를\n몇 건 하세요?",
+            "short": "한 달 이사",
+            "hint": "단체 보험료를 어림잡을 때 써요",
+            "placeholder": "건수",
+            "unit": "건",
+            "max": 10000,
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "better",
+      "name": "더 나은 경험",
+      "numbered": false,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b22",
+          "type": "image",
+          "image": {
+            "src": "/campaign/insurance-2026-11/growth.webp",
+            "alt": "",
+            "width": 95,
+            "height": 95
+          }
+        },
+        {
+          "id": "b23",
+          "type": "heading",
+          "lines": ["더 나은 경험을 위해"],
+          "size": "lg"
+        },
+        {
+          "id": "b24",
+          "type": "text",
+          "lines": [
+            "파트너분들이",
+            "더 나은 환경에서",
+            "더 많은 수익을",
+            "미소에서 가져갈 수 있도록",
+            "문제를 해결해 나가려 해요.",
+            "",
+            "여기엔 파트너님들의 의견이 가장 중요해요.",
+            "",
+            "그래서 **11월 18일**,",
+            "이사 성수기 전 겨울을 맞아",
+            "파트너님들의 의견을 듣는 자리를",
+            "열어 보려 해요.",
+            "",
+            "마음만 같아선 모든 파트너분들을 모셔",
+            "한 분 한 분 이야기를 나눠 보고 싶지만",
+            "공간이 넉넉하지 않아",
+            "참여를 희망하시는 분이 몇 분인지",
+            "먼저 여쭤봐요."
+          ],
+          "tone": "default"
+        }
+      ],
+      "variant": "night"
+    },
+    {
+      "id": "night",
+      "name": "미소의 밤",
+      "numbered": false,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b25",
+          "type": "heading",
+          "lines": ["미소의 밤에", "참여하고 싶으세요?"],
+          "size": "lg"
+        },
+        {
+          "id": "b26",
+          "type": "text",
+          "lines": [
+            "파트너 대표님들과 미소 팀이 저녁을 함께하며",
+            "미소방문 이야기를 나누는 자리예요."
+          ],
+          "tone": "subtle"
+        },
+        {
+          "id": "b27",
+          "type": "facts",
+          "rows": [
+            ["일시", "11월 18일 (수) 18:00 ~ 20:30"],
+            ["장소", "율곡로 6 트윈타워 B 5층 MISO"],
+            ["제공", "저녁 식사, 주차"]
+          ]
+        },
+        {
+          "id": "b28",
+          "type": "question",
+          "question": {
+            "key": "nightIntent",
+            "kind": "choice",
+            "label": "미소의 밤에 참여하고 싶으세요?",
+            "short": "미소의 밤",
+            "required": true,
+            "layout": "row",
+            "hideLabel": true,
+            "options": [
+              {
+                "value": "want",
+                "label": "가고 싶어요",
+                "summary": "참석 희망"
+              },
+              {
+                "value": "hard",
+                "label": "어려워요",
+                "summary": "어려움"
+              },
+              {
+                "value": "unsure",
+                "label": "아직 몰라요",
+                "summary": "미정",
+                "minor": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "b29",
+          "type": "text",
+          "lines": [
+            "희망해 주셔도 자리에 따라 모시기 어려울 수 있어요.",
+            "확정 여부는 11월 12일(목)까지 문자로 알려 드려요."
+          ],
+          "tone": "subtle"
+        }
+      ],
+      "variant": "night"
+    },
+    {
+      "id": "comment",
+      "name": "더 하실 말씀",
+      "numbered": false,
+      "align": "center",
+      "blocks": [
+        {
+          "id": "b30",
+          "type": "question",
+          "question": {
+            "key": "comment",
+            "kind": "text",
+            "label": "보험이나 미소에\n바라는 점이 있으세요?",
+            "short": "의견",
+            "placeholder": "보험이나 미소에 바라는 점을 자유롭게 적어 주세요",
+            "multiline": true,
+            "required": false
+          }
+        }
+      ]
+    }
+  ],
+  "done": {
+    "blocks": [
+      {
+        "id": "b31",
+        "type": "heading",
+        "lines": ["더 나은 미소를 위해 노력할게요"],
+        "size": "lg"
+      },
+      {
+        "id": "b32",
+        "type": "text",
+        "lines": ["보내 주신 답은 보험 조건을 정할 때 꼭 참고할게요."],
+        "tone": "subtle"
+      },
+      {
+        "id": "b33",
+        "type": "text",
+        "lines": [
+          "미소의 밤은 희망으로 받았고, 확정 여부는",
+          "11월 12일(목)까지 문자로 알려 드려요."
+        ],
+        "tone": "subtle",
+        "visibleWhen": {
+          "not": {
+            "isEmpty": {
+              "var": "answers.nightIntent"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "submit": {
+    "label": "보내기",
+    "note": "보낸 뒤에도 이 링크로 다시 고칠 수 있어요"
+  },
+  "variants": [
+    {
+      "key": "night",
+      "label": "미소의 밤 초대"
+    }
+  ],
+  "sms": {
+    "title": "미소방문 파트너 보험 설문",
+    "lines": [
+      {
+        "text": "[미소] {파트너명} 대표님, 미소방문 파트너분들과 함께 드는 보험을 준비하고 있어요."
+      },
+      {
+        "text": "지금 드신 보험과 의견을 알려 주시면 보험료와 보장을 정할 때 참고할게요."
+      },
+      {
+        "text": "11월 18일(수) 미소의 밤 참석 희망도 함께 여쭤봐요.",
+        "variant": "night"
+      },
+      {
+        "text": "{마감}까지 답해 주세요."
+      },
+      {
+        "text": ""
+      },
+      {
+        "text": "{링크}"
+      }
+    ]
+  }
+}

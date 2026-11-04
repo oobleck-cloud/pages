@@ -1,0 +1,13 @@
+{
+  "name": "pages",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/pages",
+    "packages/pages-views"
+  ],
+  "scripts": {
+    "type-check": "npm run type-check --workspaces",
+    "test": "npm test --workspaces"
+  }
+}

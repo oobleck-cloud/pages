@@ -1,0 +1,33 @@
+{
+  "name": "@oobleck/pages-views",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "pages 화면 뷰. 레이아웃 장 · 블록 장을 그리고, 부품 · 그림 · 고르기 테두리는 킷 자리로 받는다. 기본 킷은 Workstyle(./workstyle). 헤드리스 코어는 @oobleck/pages.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./workstyle": "./src/workstyle/index.tsx"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@oobleck/pages": "file:../pages",
+    "@oobleck/workstyle": "file:../../../workstyle"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3"
+  }
+}

@@ -1,0 +1,1987 @@
+{
+  "schema": "seed-design/document",
+  "schemaVersion": 2,
+  "revision": 2,
+  "engine": "0.15.1",
+  "id": "sd_r3DOjjwN-qU5BiLo",
+  "variableCollections": [
+    {
+      "id": "campaign-ds/0:1005390",
+      "name": "color",
+      "modes": [{ "modeId": "0:1005391", "name": "Mode 1" }],
+      "defaultModeId": "0:1005391",
+      "variableIds": [
+        "campaign-ds/0:1005396",
+        "campaign-ds/0:1005399",
+        "campaign-ds/0:1005402",
+        "campaign-ds/0:1005405",
+        "campaign-ds/0:1005408",
+        "campaign-ds/0:1005411",
+        "campaign-ds/0:1005414",
+        "campaign-ds/0:1005417",
+        "campaign-ds/0:1005420",
+        "campaign-ds/0:1005423",
+        "campaign-ds/0:1005426"
+      ]
+    },
+    {
+      "id": "0:1005390",
+      "name": "color",
+      "modes": [{ "modeId": "0:1005391", "name": "Mode 1" }],
+      "defaultModeId": "0:1005391",
+      "variableIds": [
+        "0:1005417",
+        "0:1005405",
+        "0:1005402",
+        "0:1005399",
+        "0:1005396",
+        "0:1005426",
+        "0:1005408",
+        "0:1005411",
+        "0:1005414",
+        "0:1005423"
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "id": "campaign-ds/0:1005417",
+      "name": "campaign/surface",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.9529411764705882,
+          "g": 0.9607843137254902,
+          "b": 0.9725490196078431,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005405",
+      "name": "campaign/ink-soft",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.29411764705882354,
+          "g": 0.3333333333333333,
+          "b": 0.38823529411764707,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005402",
+      "name": "campaign/ink-sub",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.4196078431372549,
+          "g": 0.4470588235294118,
+          "b": 0.5019607843137255,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005399",
+      "name": "campaign/ink",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.06666666666666667,
+          "g": 0.06666666666666667,
+          "b": 0.06666666666666667,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005396",
+      "name": "campaign/bg",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": { "0:1005391": { "r": 1, "g": 1, "b": 1, "a": 1 } },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005426",
+      "name": "campaign/border",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.8196078431372549,
+          "g": 0.8352941176470589,
+          "b": 0.8588235294117647,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005408",
+      "name": "campaign/primary",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.00392156862745098,
+          "g": 0.23137254901960785,
+          "b": 0.984313725490196,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005411",
+      "name": "campaign/primary-soft",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": { "r": 0.9176470588235294, "g": 0.9411764705882353, "b": 1, "a": 1 }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005414",
+      "name": "campaign/on-primary",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": { "0:1005391": { "r": 1, "g": 1, "b": 1, "a": 1 } },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005423",
+      "name": "campaign/track",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.9333333333333333,
+          "g": 0.9411764705882353,
+          "b": 0.9529411764705882,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "campaign-ds/0:1005420",
+      "name": "campaign/surface-soft",
+      "type": "COLOR",
+      "collectionId": "campaign-ds/0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.9686274509803922,
+          "g": 0.9725490196078431,
+          "b": 0.9803921568627451,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005417",
+      "name": "campaign/surface",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.9529411764705882,
+          "g": 0.9607843137254902,
+          "b": 0.9725490196078431,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005405",
+      "name": "campaign/ink-soft",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.29411764705882354,
+          "g": 0.3333333333333333,
+          "b": 0.38823529411764707,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005402",
+      "name": "campaign/ink-sub",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.4196078431372549,
+          "g": 0.4470588235294118,
+          "b": 0.5019607843137255,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005399",
+      "name": "campaign/ink",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.06666666666666667,
+          "g": 0.06666666666666667,
+          "b": 0.06666666666666667,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005396",
+      "name": "campaign/bg",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": { "0:1005391": { "r": 1, "g": 1, "b": 1, "a": 1 } },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005426",
+      "name": "campaign/border",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.8196078431372549,
+          "g": 0.8352941176470589,
+          "b": 0.8588235294117647,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005408",
+      "name": "campaign/primary",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.00392156862745098,
+          "g": 0.23137254901960785,
+          "b": 0.984313725490196,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005411",
+      "name": "campaign/primary-soft",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": { "r": 0.9176470588235294, "g": 0.9411764705882353, "b": 1, "a": 1 }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005414",
+      "name": "campaign/on-primary",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": { "0:1005391": { "r": 1, "g": 1, "b": 1, "a": 1 } },
+      "description": "",
+      "hiddenFromPublishing": false
+    },
+    {
+      "id": "0:1005423",
+      "name": "campaign/track",
+      "type": "COLOR",
+      "collectionId": "0:1005390",
+      "valuesByMode": {
+        "0:1005391": {
+          "r": 0.9333333333333333,
+          "g": 0.9411764705882353,
+          "b": 0.9529411764705882,
+          "a": 1
+        }
+      },
+      "description": "",
+      "hiddenFromPublishing": false
+    }
+  ],
+  "enabledLibraries": [
+    {
+      "libraryId": "campaign-ds",
+      "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee",
+      "enabled": true
+    }
+  ],
+  "pages": [
+    {
+      "id": "0:1005729",
+      "name": "Page 1",
+      "children": [
+        {
+          "id": "0:1005741",
+          "type": "FRAME",
+          "name": "liability · 질문1 영업배상",
+          "width": 393,
+          "height": 852,
+          "fills": [
+            {
+              "type": "SOLID",
+              "color": { "r": 1, "g": 1, "b": 1, "a": 1 },
+              "opacity": 1,
+              "visible": true
+            }
+          ],
+          "layoutMode": "VERTICAL",
+          "pluginData": [{ "pluginId": "seed", "key": "seed/frameRole", "value": "page" }],
+          "children": [
+            {
+              "id": "0:1005777",
+              "type": "FRAME",
+              "name": "장",
+              "width": 393,
+              "height": 852,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": { "r": 1, "g": 1, "b": 1, "a": 1 },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "layoutMode": "VERTICAL",
+              "primaryAxisSizing": "HUG",
+              "counterAxisSizing": "HUG",
+              "paddingTop": 48,
+              "paddingRight": 24,
+              "paddingBottom": 48,
+              "paddingLeft": 24,
+              "layoutGrow": 1,
+              "layoutAlignSelf": "STRETCH",
+              "boundVariables": { "fills/0/color": "campaign-ds/0:1005396" },
+              "children": [
+                {
+                  "id": "0:1005778",
+                  "type": "INSTANCE",
+                  "name": "progress-header",
+                  "x": 24,
+                  "y": 48,
+                  "width": 345,
+                  "height": 76,
+                  "layoutMode": "VERTICAL",
+                  "primaryAxisSizing": "HUG",
+                  "counterAxisSizing": "HUG",
+                  "itemSpacing": 10,
+                  "layoutAlignSelf": "STRETCH",
+                  "componentId": "0:1005747",
+                  "instanceOverrides": {
+                    "self": [
+                      ["layoutAlignSelf", { "defined": true, "value": "STRETCH" }],
+                      ["layoutDirection", { "defined": true, "value": true }],
+                      ["counterAxisSizing", { "defined": true, "value": "HUG" }]
+                    ],
+                    "descendants": []
+                  },
+                  "children": [
+                    {
+                      "id": "0:1005779",
+                      "type": "FRAME",
+                      "name": "뒤로",
+                      "width": 345,
+                      "height": 32,
+                      "locked": true,
+                      "layoutMode": "HORIZONTAL",
+                      "counterAxisAlign": "CENTER",
+                      "primaryAxisSizing": "HUG",
+                      "layoutAlignSelf": "STRETCH",
+                      "componentId": "0:1005748",
+                      "children": [
+                        {
+                          "id": "0:1005780",
+                          "type": "TEXT",
+                          "name": "뒤로 표시",
+                          "y": 4,
+                          "width": 20,
+                          "height": 24,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.06666666666666667,
+                                "g": 0.06666666666666667,
+                                "b": 0.06666666666666667,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "locked": true,
+                          "text": "←",
+                          "fontSize": 20,
+                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                          "componentId": "0:1005749",
+                          "boundVariables": { "fills/0/color": "0:1005399" }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "0:1005781",
+                      "type": "TEXT",
+                      "name": "질문 차례",
+                      "y": 42,
+                      "width": 55,
+                      "height": 20,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.00392156862745098,
+                            "g": 0.23137254901960785,
+                            "b": 0.984313725490196,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "textStyleId": "0:1005451",
+                      "locked": true,
+                      "text": "질문 1 / 8",
+                      "fontFamily": "Pretendard",
+                      "fontWeight": 600,
+                      "textAutoResize": "WIDTH_AND_HEIGHT",
+                      "lineHeight": 20,
+                      "componentId": "0:1005750",
+                      "componentPropertyReferences": [
+                        { "propertyId": "step#1", "field": "VISIBLE" }
+                      ],
+                      "boundVariables": { "fills/0/color": "0:1005408" }
+                    },
+                    {
+                      "id": "0:1005782",
+                      "type": "FRAME",
+                      "name": "진행 막대",
+                      "y": 72,
+                      "width": 345,
+                      "height": 4,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.9333333333333333,
+                            "g": 0.9411764705882353,
+                            "b": 0.9529411764705882,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "cornerRadius": 2,
+                      "locked": true,
+                      "layoutMode": "HORIZONTAL",
+                      "primaryAxisSizing": "HUG",
+                      "layoutAlignSelf": "STRETCH",
+                      "componentId": "0:1005751",
+                      "componentPropertyReferences": [
+                        { "propertyId": "step#1", "field": "VISIBLE" }
+                      ],
+                      "boundVariables": { "fills/0/color": "0:1005423" },
+                      "children": [
+                        {
+                          "id": "0:1005783",
+                          "type": "FRAME",
+                          "name": "채움",
+                          "width": 43,
+                          "height": 4,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.00392156862745098,
+                                "g": 0.23137254901960785,
+                                "b": 0.984313725490196,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "cornerRadius": 2,
+                          "locked": true,
+                          "componentId": "0:1005752",
+                          "boundVariables": { "fills/0/color": "0:1005408" }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "0:1005784",
+                  "type": "FRAME",
+                  "name": "물음",
+                  "x": 24,
+                  "y": 124,
+                  "width": 345,
+                  "height": 622,
+                  "layoutMode": "VERTICAL",
+                  "primaryAxisAlign": "CENTER",
+                  "primaryAxisSizing": "HUG",
+                  "counterAxisSizing": "HUG",
+                  "itemSpacing": 32,
+                  "layoutGrow": 1,
+                  "layoutAlignSelf": "STRETCH",
+                  "children": [
+                    {
+                      "id": "0:1005785",
+                      "type": "FRAME",
+                      "name": "글",
+                      "y": 178,
+                      "width": 345,
+                      "height": 70,
+                      "layoutMode": "VERTICAL",
+                      "counterAxisAlign": "CENTER",
+                      "primaryAxisSizing": "HUG",
+                      "counterAxisSizing": "HUG",
+                      "itemSpacing": 12,
+                      "layoutAlignSelf": "STRETCH",
+                      "children": [
+                        {
+                          "id": "0:1005786",
+                          "type": "TEXT",
+                          "name": "제목",
+                          "x": 15,
+                          "width": 315,
+                          "height": 34,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.06666666666666667,
+                                "g": 0.06666666666666667,
+                                "b": 0.06666666666666667,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "textStyleId": "0:1005740",
+                          "text": "영업배상책임보험에 들어 계세요?",
+                          "fontSize": 24,
+                          "fontFamily": "Pretendard",
+                          "fontWeight": 700,
+                          "textAlignHorizontal": "CENTER",
+                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                          "lineHeight": 34,
+                          "boundVariables": { "fills/0/color": "campaign-ds/0:1005399" }
+                        },
+                        {
+                          "id": "0:1005787",
+                          "type": "TEXT",
+                          "name": "설명",
+                          "x": 2,
+                          "y": 46,
+                          "width": 341,
+                          "height": 24,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.4196078431372549,
+                                "g": 0.4470588235294118,
+                                "b": 0.5019607843137255,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "textStyleId": "0:1005733",
+                          "text": "작업 중 고객 집·건물에 낸 사고를 물어 주는 보험이에요",
+                          "fontSize": 16,
+                          "fontFamily": "Pretendard",
+                          "textAlignHorizontal": "CENTER",
+                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                          "lineHeight": 24,
+                          "boundVariables": { "fills/0/color": "campaign-ds/0:1005402" }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "0:1005788",
+                      "type": "INSTANCE",
+                      "name": "배치=큰칸",
+                      "y": 280,
+                      "width": 345,
+                      "height": 164,
+                      "layoutMode": "VERTICAL",
+                      "primaryAxisSizing": "HUG",
+                      "counterAxisSizing": "HUG",
+                      "itemSpacing": 20,
+                      "layoutAlignSelf": "STRETCH",
+                      "componentId": "0:1005754",
+                      "instanceOverrides": {
+                        "self": [
+                          ["layoutAlignSelf", { "defined": true, "value": "STRETCH" }],
+                          ["layoutDirection", { "defined": true, "value": true }],
+                          ["counterAxisSizing", { "defined": true, "value": "HUG" }]
+                        ],
+                        "descendants": [
+                          ["0:1005789", [["text", { "defined": true, "value": "liability" }]]]
+                        ]
+                      },
+                      "componentPropertyAssignments": { "qid#1": "liability" },
+                      "children": [
+                        {
+                          "id": "0:1005789",
+                          "type": "TEXT",
+                          "name": "질문 ID",
+                          "width": 87,
+                          "height": 17,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.4196078431372549,
+                                "g": 0.4470588235294118,
+                                "b": 0.5019607843137255,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "textStyleId": "0:1005442",
+                          "visible": false,
+                          "locked": true,
+                          "text": "liability",
+                          "fontFamily": "Pretendard",
+                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                          "lineHeight": 20,
+                          "componentId": "0:1005755",
+                          "componentPropertyReferences": [
+                            { "propertyId": "qid#1", "field": "TEXT" }
+                          ],
+                          "boundVariables": { "fills/0/color": "0:1005402" }
+                        },
+                        {
+                          "id": "0:1005790",
+                          "type": "FRAME",
+                          "name": "보기",
+                          "width": 345,
+                          "height": 120,
+                          "locked": true,
+                          "layoutMode": "HORIZONTAL",
+                          "primaryAxisSizing": "HUG",
+                          "counterAxisSizing": "HUG",
+                          "itemSpacing": 12,
+                          "layoutAlignSelf": "STRETCH",
+                          "componentId": "0:1005756",
+                          "children": [
+                            {
+                              "id": "0:1005791",
+                              "type": "FRAME",
+                              "name": "보기 칸",
+                              "width": 166.5,
+                              "height": 120,
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "color": {
+                                    "r": 0.9529411764705882,
+                                    "g": 0.9607843137254902,
+                                    "b": 0.9725490196078431,
+                                    "a": 1
+                                  },
+                                  "opacity": 1,
+                                  "visible": true
+                                }
+                              ],
+                              "cornerRadius": 20,
+                              "locked": true,
+                              "layoutMode": "VERTICAL",
+                              "primaryAxisAlign": "CENTER",
+                              "counterAxisAlign": "CENTER",
+                              "counterAxisSizing": "HUG",
+                              "layoutGrow": 1,
+                              "componentId": "0:1005757",
+                              "boundVariables": { "fills/0/color": "0:1005417" },
+                              "children": [
+                                {
+                                  "id": "0:1005792",
+                                  "type": "TEXT",
+                                  "name": "보기 글",
+                                  "x": 53.75,
+                                  "y": 44,
+                                  "width": 59,
+                                  "height": 32,
+                                  "fills": [
+                                    {
+                                      "type": "SOLID",
+                                      "color": {
+                                        "r": 0.06666666666666667,
+                                        "g": 0.06666666666666667,
+                                        "b": 0.06666666666666667,
+                                        "a": 1
+                                      },
+                                      "opacity": 1,
+                                      "visible": true
+                                    }
+                                  ],
+                                  "textStyleId": "0:1005448",
+                                  "locked": true,
+                                  "text": "보기 1",
+                                  "fontSize": 24,
+                                  "fontFamily": "Pretendard",
+                                  "fontWeight": 700,
+                                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                                  "lineHeight": 32,
+                                  "componentId": "0:1005758",
+                                  "boundVariables": { "fills/0/color": "0:1005399" }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "0:1005793",
+                              "type": "FRAME",
+                              "name": "보기 칸",
+                              "x": 178.5,
+                              "width": 166.5,
+                              "height": 120,
+                              "fills": [
+                                {
+                                  "type": "SOLID",
+                                  "color": {
+                                    "r": 0.9529411764705882,
+                                    "g": 0.9607843137254902,
+                                    "b": 0.9725490196078431,
+                                    "a": 1
+                                  },
+                                  "opacity": 1,
+                                  "visible": true
+                                }
+                              ],
+                              "cornerRadius": 20,
+                              "locked": true,
+                              "layoutMode": "VERTICAL",
+                              "primaryAxisAlign": "CENTER",
+                              "counterAxisAlign": "CENTER",
+                              "counterAxisSizing": "HUG",
+                              "layoutGrow": 1,
+                              "componentId": "0:1005759",
+                              "boundVariables": { "fills/0/color": "0:1005417" },
+                              "children": [
+                                {
+                                  "id": "0:1005794",
+                                  "type": "TEXT",
+                                  "name": "보기 글",
+                                  "x": 52.25,
+                                  "y": 44,
+                                  "width": 62,
+                                  "height": 32,
+                                  "fills": [
+                                    {
+                                      "type": "SOLID",
+                                      "color": {
+                                        "r": 0.06666666666666667,
+                                        "g": 0.06666666666666667,
+                                        "b": 0.06666666666666667,
+                                        "a": 1
+                                      },
+                                      "opacity": 1,
+                                      "visible": true
+                                    }
+                                  ],
+                                  "textStyleId": "0:1005448",
+                                  "locked": true,
+                                  "text": "보기 2",
+                                  "fontSize": 24,
+                                  "fontFamily": "Pretendard",
+                                  "fontWeight": 700,
+                                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                                  "lineHeight": 32,
+                                  "componentId": "0:1005760",
+                                  "boundVariables": { "fills/0/color": "0:1005399" }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "0:1005795",
+                          "type": "TEXT",
+                          "name": "딸린 보기",
+                          "y": 140,
+                          "width": 345,
+                          "height": 24,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.4196078431372549,
+                                "g": 0.4470588235294118,
+                                "b": 0.5019607843137255,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "textStyleId": "0:1005436",
+                          "locked": true,
+                          "text": "모르겠어요",
+                          "fontSize": 16,
+                          "fontFamily": "Pretendard",
+                          "textAlignHorizontal": "CENTER",
+                          "textAutoResize": "HEIGHT",
+                          "lineHeight": 24,
+                          "layoutAlignSelf": "STRETCH",
+                          "componentId": "0:1005761",
+                          "boundVariables": { "fills/0/color": "0:1005402" }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "0:1005796",
+                  "type": "INSTANCE",
+                  "name": "종류=주요",
+                  "x": 24,
+                  "y": 746,
+                  "width": 345,
+                  "height": 58,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.00392156862745098,
+                        "g": 0.23137254901960785,
+                        "b": 0.984313725490196,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "cornerRadius": 16,
+                  "layoutMode": "HORIZONTAL",
+                  "primaryAxisAlign": "CENTER",
+                  "counterAxisAlign": "CENTER",
+                  "primaryAxisSizing": "HUG",
+                  "layoutAlignSelf": "STRETCH",
+                  "componentId": "0:1005771",
+                  "instanceOverrides": {
+                    "self": [
+                      ["layoutAlignSelf", { "defined": true, "value": "STRETCH" }],
+                      ["layoutDirection", { "defined": true, "value": true }],
+                      ["primaryAxisSizing", { "defined": true, "value": "HUG" }]
+                    ],
+                    "descendants": [["0:1005797", [["text", { "defined": true, "value": "다음" }]]]]
+                  },
+                  "componentPropertyAssignments": { "label#1": "다음" },
+                  "boundVariables": { "fills/0/color": "0:1005408" },
+                  "children": [
+                    {
+                      "id": "0:1005797",
+                      "type": "TEXT",
+                      "name": "글",
+                      "x": 156.5,
+                      "y": 16,
+                      "width": 32,
+                      "height": 26,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": { "r": 1, "g": 1, "b": 1, "a": 1 },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "textStyleId": "0:1005445",
+                      "locked": true,
+                      "text": "다음",
+                      "fontSize": 18,
+                      "fontFamily": "Pretendard",
+                      "fontWeight": 700,
+                      "textAutoResize": "WIDTH_AND_HEIGHT",
+                      "lineHeight": 26,
+                      "componentId": "0:1005772",
+                      "componentPropertyReferences": [{ "propertyId": "label#1", "field": "TEXT" }],
+                      "boundVariables": { "fills/0/color": "0:1005414" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0:1005732",
+      "name": "Seed styles",
+      "internalOnly": true,
+      "children": [
+        {
+          "id": "0:1005733",
+          "type": "TEXT",
+          "name": "campaign/body",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/body",
+          "fontSize": 16,
+          "fontFamily": "Pretendard",
+          "lineHeight": 24,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005734",
+          "type": "TEXT",
+          "name": "campaign/body-strong",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/body-strong",
+          "fontSize": 16,
+          "fontFamily": "Pretendard",
+          "fontWeight": 600,
+          "lineHeight": 24,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005735",
+          "type": "TEXT",
+          "name": "campaign/caption",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/caption",
+          "fontFamily": "Pretendard",
+          "lineHeight": 20,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005736",
+          "type": "TEXT",
+          "name": "campaign/choice-lg",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/choice-lg",
+          "fontSize": 24,
+          "fontFamily": "Pretendard",
+          "fontWeight": 700,
+          "lineHeight": 32,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005737",
+          "type": "TEXT",
+          "name": "campaign/label",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/label",
+          "fontSize": 18,
+          "fontFamily": "Pretendard",
+          "fontWeight": 700,
+          "lineHeight": 26,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005738",
+          "type": "TEXT",
+          "name": "campaign/lead",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/lead",
+          "fontSize": 18,
+          "fontFamily": "Pretendard",
+          "lineHeight": 28,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005739",
+          "type": "TEXT",
+          "name": "campaign/step",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/step",
+          "fontFamily": "Pretendard",
+          "fontWeight": 600,
+          "lineHeight": 20,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        },
+        {
+          "id": "0:1005740",
+          "type": "TEXT",
+          "name": "campaign/title",
+          "sharedStyleType": "TEXT",
+          "text": "campaign/title",
+          "fontSize": 24,
+          "fontFamily": "Pretendard",
+          "fontWeight": 700,
+          "lineHeight": 34,
+          "pluginData": [
+            { "pluginId": "seed", "key": "seed/libraryStyle", "value": "campaign-ds" }
+          ],
+          "internalOnly": true
+        }
+      ]
+    },
+    {
+      "id": "0:1005746",
+      "name": "OpenPencil library definitions",
+      "internalOnly": true,
+      "children": [
+        {
+          "id": "0:1005747",
+          "type": "COMPONENT",
+          "name": "progress-header",
+          "width": 345,
+          "height": 76,
+          "locked": true,
+          "layoutMode": "VERTICAL",
+          "primaryAxisSizing": "HUG",
+          "itemSpacing": 10,
+          "componentPropertyDefinitions": [
+            {
+              "id": "step#1",
+              "name": "질문 차례 보이기",
+              "type": "BOOLEAN",
+              "defaultValue": "true"
+            }
+          ],
+          "componentKey": "progress-header",
+          "librarySource": {
+            "identity": {
+              "libraryId": "campaign-ds",
+              "assetKey": "progress-header",
+              "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+            },
+            "sourceNodeId": "0:1005720",
+            "readOnly": true
+          },
+          "children": [
+            {
+              "id": "0:1005748",
+              "type": "FRAME",
+              "name": "뒤로",
+              "width": 345,
+              "height": 32,
+              "locked": true,
+              "layoutMode": "HORIZONTAL",
+              "counterAxisAlign": "CENTER",
+              "primaryAxisSizing": "HUG",
+              "layoutAlignSelf": "STRETCH",
+              "children": [
+                {
+                  "id": "0:1005749",
+                  "type": "TEXT",
+                  "name": "뒤로 표시",
+                  "y": 4,
+                  "width": 20,
+                  "height": 24,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.06666666666666667,
+                        "g": 0.06666666666666667,
+                        "b": 0.06666666666666667,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "locked": true,
+                  "text": "←",
+                  "fontSize": 20,
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "boundVariables": { "fills/0/color": "0:1005399" }
+                }
+              ]
+            },
+            {
+              "id": "0:1005750",
+              "type": "TEXT",
+              "name": "질문 차례",
+              "y": 42,
+              "width": 55,
+              "height": 20,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 0.00392156862745098,
+                    "g": 0.23137254901960785,
+                    "b": 0.984313725490196,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "textStyleId": "0:1005451",
+              "locked": true,
+              "text": "질문 1 / 8",
+              "fontFamily": "Pretendard",
+              "fontWeight": 600,
+              "textAutoResize": "WIDTH_AND_HEIGHT",
+              "lineHeight": 20,
+              "componentPropertyReferences": [{ "propertyId": "step#1", "field": "VISIBLE" }],
+              "boundVariables": { "fills/0/color": "0:1005408" }
+            },
+            {
+              "id": "0:1005751",
+              "type": "FRAME",
+              "name": "진행 막대",
+              "y": 72,
+              "width": 345,
+              "height": 4,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 0.9333333333333333,
+                    "g": 0.9411764705882353,
+                    "b": 0.9529411764705882,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "cornerRadius": 2,
+              "locked": true,
+              "layoutMode": "HORIZONTAL",
+              "primaryAxisSizing": "HUG",
+              "layoutAlignSelf": "STRETCH",
+              "componentPropertyReferences": [{ "propertyId": "step#1", "field": "VISIBLE" }],
+              "boundVariables": { "fills/0/color": "0:1005423" },
+              "children": [
+                {
+                  "id": "0:1005752",
+                  "type": "FRAME",
+                  "name": "채움",
+                  "width": 43,
+                  "height": 4,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.00392156862745098,
+                        "g": 0.23137254901960785,
+                        "b": 0.984313725490196,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "cornerRadius": 2,
+                  "locked": true,
+                  "boundVariables": { "fills/0/color": "0:1005408" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "0:1005753",
+          "type": "COMPONENT_SET",
+          "name": "question-choice",
+          "y": 300,
+          "width": 377,
+          "height": 432,
+          "locked": true,
+          "layoutMode": "VERTICAL",
+          "primaryAxisSizing": "HUG",
+          "counterAxisSizing": "HUG",
+          "itemSpacing": 24,
+          "paddingTop": 16,
+          "paddingRight": 16,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "componentPropertyDefinitions": [
+            { "id": "qid#1", "name": "질문 ID", "type": "TEXT", "defaultValue": "question-key" },
+            {
+              "id": "prop:1b878bf489966211",
+              "name": "배치",
+              "type": "VARIANT",
+              "defaultValue": "큰칸",
+              "variantOptions": ["큰칸", "목록"]
+            }
+          ],
+          "componentKey": "question-choice",
+          "librarySource": {
+            "identity": {
+              "libraryId": "campaign-ds",
+              "assetKey": "question-choice",
+              "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+            },
+            "sourceNodeId": "0:1005696",
+            "readOnly": true
+          },
+          "children": [
+            {
+              "id": "0:1005754",
+              "type": "COMPONENT",
+              "name": "배치=큰칸",
+              "x": 16,
+              "y": 16,
+              "width": 345,
+              "height": 164,
+              "locked": true,
+              "layoutMode": "VERTICAL",
+              "primaryAxisSizing": "HUG",
+              "itemSpacing": 20,
+              "componentPropertyValues": { "배치": "큰칸" },
+              "componentKey": "question-choice/variant",
+              "librarySource": {
+                "identity": {
+                  "libraryId": "campaign-ds",
+                  "assetKey": "question-choice/variant",
+                  "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+                },
+                "sourceNodeId": "0:1005697",
+                "readOnly": true
+              },
+              "children": [
+                {
+                  "id": "0:1005755",
+                  "type": "TEXT",
+                  "name": "질문 ID",
+                  "width": 87,
+                  "height": 17,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.4196078431372549,
+                        "g": 0.4470588235294118,
+                        "b": 0.5019607843137255,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "textStyleId": "0:1005442",
+                  "visible": false,
+                  "locked": true,
+                  "text": "question-key",
+                  "fontFamily": "Pretendard",
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "lineHeight": 20,
+                  "componentPropertyReferences": [{ "propertyId": "qid#1", "field": "TEXT" }],
+                  "boundVariables": { "fills/0/color": "0:1005402" }
+                },
+                {
+                  "id": "0:1005756",
+                  "type": "FRAME",
+                  "name": "보기",
+                  "width": 345,
+                  "height": 120,
+                  "locked": true,
+                  "layoutMode": "HORIZONTAL",
+                  "primaryAxisSizing": "HUG",
+                  "counterAxisSizing": "HUG",
+                  "itemSpacing": 12,
+                  "layoutAlignSelf": "STRETCH",
+                  "children": [
+                    {
+                      "id": "0:1005757",
+                      "type": "FRAME",
+                      "name": "보기 칸",
+                      "width": 166.5,
+                      "height": 120,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.9529411764705882,
+                            "g": 0.9607843137254902,
+                            "b": 0.9725490196078431,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "cornerRadius": 20,
+                      "locked": true,
+                      "layoutMode": "VERTICAL",
+                      "primaryAxisAlign": "CENTER",
+                      "counterAxisAlign": "CENTER",
+                      "counterAxisSizing": "HUG",
+                      "layoutGrow": 1,
+                      "boundVariables": { "fills/0/color": "0:1005417" },
+                      "children": [
+                        {
+                          "id": "0:1005758",
+                          "type": "TEXT",
+                          "name": "보기 글",
+                          "x": 53.75,
+                          "y": 44,
+                          "width": 59,
+                          "height": 32,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.06666666666666667,
+                                "g": 0.06666666666666667,
+                                "b": 0.06666666666666667,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "textStyleId": "0:1005448",
+                          "locked": true,
+                          "text": "보기 1",
+                          "fontSize": 24,
+                          "fontFamily": "Pretendard",
+                          "fontWeight": 700,
+                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                          "lineHeight": 32,
+                          "boundVariables": { "fills/0/color": "0:1005399" }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "0:1005759",
+                      "type": "FRAME",
+                      "name": "보기 칸",
+                      "x": 178.5,
+                      "width": 166.5,
+                      "height": 120,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.9529411764705882,
+                            "g": 0.9607843137254902,
+                            "b": 0.9725490196078431,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "cornerRadius": 20,
+                      "locked": true,
+                      "layoutMode": "VERTICAL",
+                      "primaryAxisAlign": "CENTER",
+                      "counterAxisAlign": "CENTER",
+                      "counterAxisSizing": "HUG",
+                      "layoutGrow": 1,
+                      "boundVariables": { "fills/0/color": "0:1005417" },
+                      "children": [
+                        {
+                          "id": "0:1005760",
+                          "type": "TEXT",
+                          "name": "보기 글",
+                          "x": 52.25,
+                          "y": 44,
+                          "width": 62,
+                          "height": 32,
+                          "fills": [
+                            {
+                              "type": "SOLID",
+                              "color": {
+                                "r": 0.06666666666666667,
+                                "g": 0.06666666666666667,
+                                "b": 0.06666666666666667,
+                                "a": 1
+                              },
+                              "opacity": 1,
+                              "visible": true
+                            }
+                          ],
+                          "textStyleId": "0:1005448",
+                          "locked": true,
+                          "text": "보기 2",
+                          "fontSize": 24,
+                          "fontFamily": "Pretendard",
+                          "fontWeight": 700,
+                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                          "lineHeight": 32,
+                          "boundVariables": { "fills/0/color": "0:1005399" }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "0:1005761",
+                  "type": "TEXT",
+                  "name": "딸린 보기",
+                  "y": 140,
+                  "width": 345,
+                  "height": 24,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.4196078431372549,
+                        "g": 0.4470588235294118,
+                        "b": 0.5019607843137255,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "textStyleId": "0:1005436",
+                  "locked": true,
+                  "text": "모르겠어요",
+                  "fontSize": 16,
+                  "fontFamily": "Pretendard",
+                  "textAlignHorizontal": "CENTER",
+                  "textAutoResize": "HEIGHT",
+                  "lineHeight": 24,
+                  "layoutAlignSelf": "STRETCH",
+                  "boundVariables": { "fills/0/color": "0:1005402" }
+                }
+              ]
+            },
+            {
+              "id": "0:1005762",
+              "type": "COMPONENT",
+              "name": "배치=목록",
+              "x": 16,
+              "y": 204,
+              "width": 345,
+              "height": 212,
+              "locked": true,
+              "layoutMode": "VERTICAL",
+              "primaryAxisSizing": "HUG",
+              "itemSpacing": 10,
+              "componentPropertyValues": { "배치": "목록" },
+              "componentKey": "question-choice/variant-2",
+              "librarySource": {
+                "identity": {
+                  "libraryId": "campaign-ds",
+                  "assetKey": "question-choice/variant-2",
+                  "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+                },
+                "sourceNodeId": "0:1005705",
+                "readOnly": true
+              },
+              "children": [
+                {
+                  "id": "0:1005763",
+                  "type": "TEXT",
+                  "name": "질문 ID",
+                  "width": 87,
+                  "height": 17,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.4196078431372549,
+                        "g": 0.4470588235294118,
+                        "b": 0.5019607843137255,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "textStyleId": "0:1005442",
+                  "visible": false,
+                  "locked": true,
+                  "text": "question-key",
+                  "fontFamily": "Pretendard",
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "lineHeight": 20,
+                  "componentPropertyReferences": [{ "propertyId": "qid#1", "field": "TEXT" }],
+                  "boundVariables": { "fills/0/color": "0:1005402" }
+                },
+                {
+                  "id": "0:1005764",
+                  "type": "FRAME",
+                  "name": "보기 칸",
+                  "width": 345,
+                  "height": 64,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.9529411764705882,
+                        "g": 0.9607843137254902,
+                        "b": 0.9725490196078431,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "cornerRadius": 16,
+                  "locked": true,
+                  "layoutMode": "HORIZONTAL",
+                  "counterAxisAlign": "CENTER",
+                  "primaryAxisSizing": "HUG",
+                  "paddingRight": 20,
+                  "paddingLeft": 20,
+                  "layoutAlignSelf": "STRETCH",
+                  "boundVariables": { "fills/0/color": "0:1005417" },
+                  "children": [
+                    {
+                      "id": "0:1005765",
+                      "type": "TEXT",
+                      "name": "보기 글",
+                      "x": 20,
+                      "y": 19,
+                      "width": 44,
+                      "height": 26,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.06666666666666667,
+                            "g": 0.06666666666666667,
+                            "b": 0.06666666666666667,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "textStyleId": "0:1005445",
+                      "locked": true,
+                      "text": "보기 1",
+                      "fontSize": 18,
+                      "fontFamily": "Pretendard",
+                      "fontWeight": 700,
+                      "textAutoResize": "WIDTH_AND_HEIGHT",
+                      "lineHeight": 26,
+                      "boundVariables": { "fills/0/color": "0:1005399" }
+                    }
+                  ]
+                },
+                {
+                  "id": "0:1005766",
+                  "type": "FRAME",
+                  "name": "보기 칸",
+                  "y": 74,
+                  "width": 345,
+                  "height": 64,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.9529411764705882,
+                        "g": 0.9607843137254902,
+                        "b": 0.9725490196078431,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "cornerRadius": 16,
+                  "locked": true,
+                  "layoutMode": "HORIZONTAL",
+                  "counterAxisAlign": "CENTER",
+                  "primaryAxisSizing": "HUG",
+                  "paddingRight": 20,
+                  "paddingLeft": 20,
+                  "layoutAlignSelf": "STRETCH",
+                  "boundVariables": { "fills/0/color": "0:1005417" },
+                  "children": [
+                    {
+                      "id": "0:1005767",
+                      "type": "TEXT",
+                      "name": "보기 글",
+                      "x": 20,
+                      "y": 19,
+                      "width": 47,
+                      "height": 26,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.06666666666666667,
+                            "g": 0.06666666666666667,
+                            "b": 0.06666666666666667,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "textStyleId": "0:1005445",
+                      "locked": true,
+                      "text": "보기 2",
+                      "fontSize": 18,
+                      "fontFamily": "Pretendard",
+                      "fontWeight": 700,
+                      "textAutoResize": "WIDTH_AND_HEIGHT",
+                      "lineHeight": 26,
+                      "boundVariables": { "fills/0/color": "0:1005399" }
+                    }
+                  ]
+                },
+                {
+                  "id": "0:1005768",
+                  "type": "FRAME",
+                  "name": "보기 칸",
+                  "y": 148,
+                  "width": 345,
+                  "height": 64,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.9529411764705882,
+                        "g": 0.9607843137254902,
+                        "b": 0.9725490196078431,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "cornerRadius": 16,
+                  "locked": true,
+                  "layoutMode": "HORIZONTAL",
+                  "counterAxisAlign": "CENTER",
+                  "primaryAxisSizing": "HUG",
+                  "paddingRight": 20,
+                  "paddingLeft": 20,
+                  "layoutAlignSelf": "STRETCH",
+                  "boundVariables": { "fills/0/color": "0:1005417" },
+                  "children": [
+                    {
+                      "id": "0:1005769",
+                      "type": "TEXT",
+                      "name": "보기 글",
+                      "x": 20,
+                      "y": 19,
+                      "width": 47,
+                      "height": 26,
+                      "fills": [
+                        {
+                          "type": "SOLID",
+                          "color": {
+                            "r": 0.06666666666666667,
+                            "g": 0.06666666666666667,
+                            "b": 0.06666666666666667,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "textStyleId": "0:1005445",
+                      "locked": true,
+                      "text": "보기 3",
+                      "fontSize": 18,
+                      "fontFamily": "Pretendard",
+                      "fontWeight": 700,
+                      "textAutoResize": "WIDTH_AND_HEIGHT",
+                      "lineHeight": 26,
+                      "boundVariables": { "fills/0/color": "0:1005399" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "0:1005770",
+          "type": "COMPONENT_SET",
+          "name": "button",
+          "x": 400,
+          "width": 377,
+          "height": 228,
+          "locked": true,
+          "layoutMode": "VERTICAL",
+          "primaryAxisSizing": "HUG",
+          "counterAxisSizing": "HUG",
+          "itemSpacing": 16,
+          "paddingTop": 16,
+          "paddingRight": 16,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "componentPropertyDefinitions": [
+            { "id": "label#1", "name": "글", "type": "TEXT", "defaultValue": "다음" },
+            {
+              "id": "prop:97327fcf0a911946",
+              "name": "종류",
+              "type": "VARIANT",
+              "defaultValue": "주요",
+              "variantOptions": ["주요", "보조", "글자"]
+            }
+          ],
+          "componentKey": "button",
+          "librarySource": {
+            "identity": {
+              "libraryId": "campaign-ds",
+              "assetKey": "button",
+              "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+            },
+            "sourceNodeId": "0:1005713",
+            "readOnly": true
+          },
+          "children": [
+            {
+              "id": "0:1005771",
+              "type": "COMPONENT",
+              "name": "종류=주요",
+              "x": 16,
+              "y": 16,
+              "width": 345,
+              "height": 58,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 0.00392156862745098,
+                    "g": 0.23137254901960785,
+                    "b": 0.984313725490196,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "cornerRadius": 16,
+              "locked": true,
+              "layoutMode": "HORIZONTAL",
+              "primaryAxisAlign": "CENTER",
+              "counterAxisAlign": "CENTER",
+              "componentPropertyValues": { "종류": "주요" },
+              "componentKey": "button/variant",
+              "librarySource": {
+                "identity": {
+                  "libraryId": "campaign-ds",
+                  "assetKey": "button/variant",
+                  "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+                },
+                "sourceNodeId": "0:1005714",
+                "readOnly": true
+              },
+              "boundVariables": { "fills/0/color": "0:1005408" },
+              "children": [
+                {
+                  "id": "0:1005772",
+                  "type": "TEXT",
+                  "name": "글",
+                  "x": 156.5,
+                  "y": 16,
+                  "width": 32,
+                  "height": 26,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": { "r": 1, "g": 1, "b": 1, "a": 1 },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "textStyleId": "0:1005445",
+                  "locked": true,
+                  "text": "다음",
+                  "fontSize": 18,
+                  "fontFamily": "Pretendard",
+                  "fontWeight": 700,
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "lineHeight": 26,
+                  "componentPropertyReferences": [{ "propertyId": "label#1", "field": "TEXT" }],
+                  "boundVariables": { "fills/0/color": "0:1005414" }
+                }
+              ]
+            },
+            {
+              "id": "0:1005773",
+              "type": "COMPONENT",
+              "name": "종류=보조",
+              "x": 16,
+              "y": 90,
+              "width": 345,
+              "height": 58,
+              "fills": [
+                {
+                  "type": "SOLID",
+                  "color": {
+                    "r": 0.9529411764705882,
+                    "g": 0.9607843137254902,
+                    "b": 0.9725490196078431,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "cornerRadius": 16,
+              "locked": true,
+              "layoutMode": "HORIZONTAL",
+              "primaryAxisAlign": "CENTER",
+              "counterAxisAlign": "CENTER",
+              "componentPropertyValues": { "종류": "보조" },
+              "componentKey": "button/variant-2",
+              "librarySource": {
+                "identity": {
+                  "libraryId": "campaign-ds",
+                  "assetKey": "button/variant-2",
+                  "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+                },
+                "sourceNodeId": "0:1005716",
+                "readOnly": true
+              },
+              "boundVariables": { "fills/0/color": "0:1005417" },
+              "children": [
+                {
+                  "id": "0:1005774",
+                  "type": "TEXT",
+                  "name": "글",
+                  "x": 156.5,
+                  "y": 16,
+                  "width": 32,
+                  "height": 26,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.06666666666666667,
+                        "g": 0.06666666666666667,
+                        "b": 0.06666666666666667,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "textStyleId": "0:1005445",
+                  "locked": true,
+                  "text": "다음",
+                  "fontSize": 18,
+                  "fontFamily": "Pretendard",
+                  "fontWeight": 700,
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "lineHeight": 26,
+                  "componentPropertyReferences": [{ "propertyId": "label#1", "field": "TEXT" }],
+                  "boundVariables": { "fills/0/color": "0:1005399" }
+                }
+              ]
+            },
+            {
+              "id": "0:1005775",
+              "type": "COMPONENT",
+              "name": "종류=글자",
+              "x": 16,
+              "y": 164,
+              "width": 345,
+              "height": 48,
+              "locked": true,
+              "layoutMode": "HORIZONTAL",
+              "primaryAxisAlign": "CENTER",
+              "counterAxisAlign": "CENTER",
+              "componentPropertyValues": { "종류": "글자" },
+              "componentKey": "button/variant-3",
+              "librarySource": {
+                "identity": {
+                  "libraryId": "campaign-ds",
+                  "assetKey": "button/variant-3",
+                  "revisionId": "5b135570bb73f31e7a50bab404dff401f59333ab07fd096ebbc8e47d314998ee"
+                },
+                "sourceNodeId": "0:1005718",
+                "readOnly": true
+              },
+              "children": [
+                {
+                  "id": "0:1005776",
+                  "type": "TEXT",
+                  "name": "글",
+                  "x": 158.5,
+                  "y": 12,
+                  "width": 28,
+                  "height": 24,
+                  "fills": [
+                    {
+                      "type": "SOLID",
+                      "color": {
+                        "r": 0.4196078431372549,
+                        "g": 0.4470588235294118,
+                        "b": 0.5019607843137255,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "textStyleId": "0:1005436",
+                  "locked": true,
+                  "text": "다음",
+                  "fontSize": 16,
+                  "fontFamily": "Pretendard",
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "lineHeight": 24,
+                  "componentPropertyReferences": [{ "propertyId": "label#1", "field": "TEXT" }],
+                  "boundVariables": { "fills/0/color": "0:1005402" }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

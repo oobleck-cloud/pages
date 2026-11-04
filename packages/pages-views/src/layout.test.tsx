@@ -1,4 +1,12 @@
-import { campaignPack, workstylePack, type LayoutStack } from '@oobleck/pages'
+import {
+  CAMPAIGN_COLORS,
+  CAMPAIGN_TEXT_STYLES,
+  definePack,
+  defineTheme,
+  workstylePack,
+  type AssetPack,
+  type LayoutStack,
+} from '@oobleck/pages'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
@@ -22,7 +30,22 @@ const tree: LayoutStack = {
 
 type Ctx = { tag: string }
 
-function kitFor(pack: typeof campaignPack, tag: string): PagesKit<Ctx> {
+/** v1 토큰으로 지은 시험용 팩 — 캠페인 팩 자체는 MVOS 에 있다. */
+const v1Pack = definePack({
+  id: 'v1',
+  name: 'v1 토큰',
+  theme: defineTheme({
+    id: 'v1',
+    name: 'v1 토큰',
+    colors: CAMPAIGN_COLORS,
+    textStyles: CAMPAIGN_TEXT_STYLES,
+    defaults: { ink: 'campaign/ink', textStyle: 'campaign/body' },
+  }),
+  surfaces: [{ kind: 'surface', id: 'screen', name: '화면', fill: 'campaign/bg' }],
+  components: [],
+})
+
+function kitFor(pack: AssetPack, tag: string): PagesKit<Ctx> {
   return defineKit<Ctx>({
     pack,
     parts: {
@@ -38,12 +61,7 @@ function kitFor(pack: typeof campaignPack, tag: string): PagesKit<Ctx> {
 describe('LayoutScreen — 같은 트리, 다른 킷', () => {
   it('부품은 킷이 그리고, 글 · 바탕 색은 킷 팩의 테마에서 찾는다', () => {
     const campaign = renderToStaticMarkup(
-      <LayoutScreen
-        root={tree}
-        kit={kitFor(campaignPack, 'mvos')}
-        ctx={{ tag: 'mvos' }}
-        fit={false}
-      />,
+      <LayoutScreen root={tree} kit={kitFor(v1Pack, 'mvos')} ctx={{ tag: 'mvos' }} fit={false} />,
     )
     const workstyle = renderToStaticMarkup(
       <LayoutScreen

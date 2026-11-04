@@ -1,5 +1,5 @@
 // @oobleck/pages — 헤드리스 SPA 화면(장 · 시트 · 흐름) 문서 코어. React · 디자인 시스템 · 호스트(MVOS)를 모른다.
-// v1(캠페인 랜딩 문서, 나간 설문)은 그대로 읽고, v2(화면 문서)는 fromV1 로 옮겨 읽는다.
+// v1(캠페인 랜딩 문서, 나간 설문)은 그대로 읽고, v2(화면 문서)는 호스트가 v1 을 옮겨 읽는다(MVOS: campaign-v2).
 // 공개 API 배럴 — 내보내는 이름을 하나씩 적는다. 패키지 안 파일끼리는 상대경로로만 import 한다.
 
 export {
@@ -137,13 +137,7 @@ export type {
   ScreenTemplate,
 } from './assets'
 export { workstylePack, workstyleTheme } from './packs/workstyle'
-export {
-  campaignPack,
-  campaignTheme,
-  campaignFrame,
-  campaignTemplates,
-  premiumValue,
-} from './packs/campaign'
+// 캠페인 팩(테마 · 부품 · 보험료 값 종류 · 화면 틀)과 v1 → v2 옮기기는 MVOS 에 있다 — 파트너 캠페인의 뜻이다.
 
 // ── 저장소 포트 — 빌더가 읽고 · 저장하고 · 발행하는 자리(어댑터는 호스트) ────────
 export { memoryStore } from './store'
@@ -200,7 +194,6 @@ export {
   fieldText,
   screenFields,
 } from './v2/form'
-export { fromV1, transitionActions } from './v2/from-v1'
 export {
   PlacementError,
   instantiateTemplate,

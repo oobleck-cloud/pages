@@ -1,201 +1,272 @@
 import { describe, expect, it } from 'vitest'
 
-import FIXTURE from '../__fixtures__/insurance-2026-11.document.json'
-import SEED_FULL from '../__fixtures__/seed-landing-full.seed.json'
-import SEED from '../__fixtures__/seed-landing.seed.json'
-import { indexOf, parseDocument, validateDocument } from '../campaign-document'
-import { campaignPack } from '../packs/campaign'
+import { definePack } from '../assets'
 import { workstylePack } from '../packs/workstyle'
-import { applySeed } from '../seed-import'
 import { planActions } from './actions'
-import { fieldAnswered, fieldText, formOf } from './form'
-import { fromV1 } from './from-v1'
+import { fieldAnswered, fieldText, formOf, scopeOf, screenFields } from './form'
 import { issueMessage, MESSAGES_KO } from './messages'
 import {
   addScreen,
+  instantiateTemplate,
   moveNode,
   placeInstance,
   placeNode,
   PlacementError,
   removeNode,
+  setBind,
   setOn,
   setProps,
 } from './ops'
 import { findNode, parseScreenDocument } from './screen'
 import { validateScreenDocument } from './validate'
 
-import type { CampaignAnswers, CampaignForm, CampaignQuestion } from '../campaign-form'
-import type { ScreenDocument } from './screen'
+import type { AssetPack } from '../assets'
+import type { FrameNode, ScreenDocument } from './screen'
 
-const PACKS = [campaignPack]
-const v1 = parseDocument(FIXTURE)
-if (!v1) throw new Error('fixture')
-
-/** 함수(`when`)를 뺀 색인 — 꼴을 견준다. */
-function shape(form: CampaignForm, presentation = true) {
-  return form.sections.map((s) => ({
-    ...s,
-    questions: s.questions.map((q) => {
-      const { when: _w, ...rest } = q
-      if (presentation) return rest
-      const {
-        layout: _l,
-        placeholder: _p,
-        multiline: _m,
-        ...meaning
-      } = rest as Record<string, unknown>
-      return meaning
-    }),
-  }))
-}
-
-/** 보이는 조건을 답 여럿으로 견준다 — 고르는 문항마다 선택지 하나씩 고른 답. */
-function sampleAnswers(form: CampaignForm): CampaignAnswers[] {
-  const out: CampaignAnswers[] = [{}]
-  for (const s of form.sections)
-    for (const q of s.questions)
-      if (q.kind === 'choice' || q.kind === 'multi')
-        for (const o of q.options) out.push({ [q.key]: q.kind === 'multi' ? [o.value] : o.value })
-  return out
-}
-
-function visibility(form: CampaignForm, answers: CampaignAnswers) {
-  return form.sections.flatMap((s) =>
-    s.questions.map((q: CampaignQuestion) => [q.key, !q.when || q.when(answers)] as const),
-  )
-}
-
-describe('v1 → v2 옮기기 — insurance-2026-11(나간 설문)', () => {
-  const v2 = fromV1(v1)
-
-  it('v2 스키마로 읽힌다', () => {
-    expect(parseScreenDocument(JSON.parse(JSON.stringify(v2)))).toEqual(v2)
-  })
-
-  it('문항 색인이 v1 과 같다(키 · 종류 · 물음 · 필수 · 선택지 · 그리기 꼴)', () => {
-    expect(shape(formOf(v2, PACKS))).toEqual(shape(indexOf(v1)))
-  })
-
-  it('보이는 조건이 v1 과 같다', () => {
-    const a = indexOf(v1)
-    const b = formOf(v2, PACKS)
-    for (const answers of sampleAnswers(a))
-      expect(visibility(b, answers)).toEqual(visibility(a, answers))
-  })
-
-  it('v1 이 막지 않으면 v2 도 막지 않는다', () => {
-    const v1Errors = validateDocument(v1, null).filter((i) => i.level === 'error')
-    const v2Errors = validateScreenDocument(v2, PACKS).filter((i) => i.level === 'error')
-    expect(v1Errors).toEqual([])
-    expect(v2Errors).toEqual([])
-  })
-
-  it('옮긴 결과가 같다', () => {
-    expect(v2).toMatchSnapshot()
-  })
-
-  it('보험료는 캠페인 팩의 값 종류다 — 팩 없이 읽으면 모르는 종류', () => {
-    const premium = v2.fields.find((f) => f.type === 'premium')
-    expect(premium).toBeDefined()
-    if (!premium) return
-    const answer = { unit: 'month', amount: 30000, unknown: false }
-    expect(fieldAnswered(PACKS, premium, answer)).toBe(true)
-    expect(fieldText(PACKS, premium, answer)).toBe('월 30,000원')
-    expect(fieldAnswered([], premium, answer)).toBe(false)
-    const issues = validateScreenDocument({ ...v2, packs: ['campaign'] }, [])
-    expect(issues.some((i) => i.code === 'field-type' && i.field === premium.key)).toBe(true)
-  })
+/** 시험용 팩 — 코어는 캠페인을 모른다. Workstyle 부품 + 값 종류 하나(별점) + 화면 틀 하나. */
+const testPack: AssetPack = definePack({
+  ...workstylePack,
+  id: 'test',
+  components: [
+    ...workstylePack.components,
+    {
+      kind: 'component',
+      key: 'stars',
+      name: '별점',
+      props: [{ type: 'TEXT', name: 'field', default: '' }],
+      value: 'stars',
+      bindProp: 'field',
+    },
+  ],
+  valueTypes: [
+    {
+      id: 'stars',
+      name: '별점',
+      accepts: ['stars'],
+      isAnswered: (_f, v) => typeof v === 'number' && v >= 1 && v <= 5,
+      format: (_f, v) => '★'.repeat(Number(v)),
+    },
+  ],
+  templates: [
+    {
+      id: 'basic',
+      name: '기본',
+      frame: {
+        id: 'frame',
+        kind: 'stack',
+        dir: 'v',
+        gap: 0,
+        pad: [0, 0, 0, 0],
+        justify: 'start',
+        align: 'start',
+        slot: false,
+        children: ['head', 'body', 'foot'].map(
+          (id): FrameNode => ({
+            id,
+            kind: 'stack',
+            dir: 'v',
+            gap: 8,
+            pad: [0, 0, 0, 0],
+            justify: 'start',
+            align: 'start',
+            children: [],
+          }),
+        ),
+      },
+    },
+  ],
 })
+const PACKS = [testPack]
 
-describe('v1 → v2 옮기기 — Seed 시안 장', () => {
-  it.each([
-    ['seed-landing', SEED],
-    ['seed-landing-full', SEED_FULL],
-  ])('%s: 묻는 필드 · 차례 · 뜻이 v1 과 같다', (_name, seed) => {
-    const { doc } = applySeed(v1, seed)
-    const v2 = fromV1(doc)
-    expect(parseScreenDocument(JSON.parse(JSON.stringify(v2)))).not.toBeNull()
-    expect(shape(formOf(v2, PACKS), false)).toEqual(shape(indexOf(doc), false))
+function doc(): ScreenDocument {
+  const template = testPack.templates![0]!
+  const frame = (id: string, body: FrameNode['children'], foot: FrameNode['children'] = []) => {
+    const f = instantiateTemplate(template, id)
+    return {
+      ...f,
+      children: f.children.map((c) =>
+        c.kind === 'stack' && c.id === `${id}-body`
+          ? { ...c, children: body }
+          : c.kind === 'stack' && c.id === `${id}-foot`
+            ? { ...c, children: foot }
+            : c,
+      ),
+    }
+  }
+  return {
+    schemaVersion: 2,
+    packs: ['test'],
+    fields: [
+      {
+        key: 'size',
+        type: 'choice',
+        label: '크기',
+        short: '크기',
+        required: true,
+        options: [
+          { value: 's', label: '작게' },
+          { value: 'l', label: '크게' },
+        ],
+      },
+      { key: 'note', type: 'text', label: '메모', short: '메모', required: false },
+      { key: 'rate', type: 'stars', label: '별점', short: '별점', required: false },
+    ],
+    computed: [{ name: 'big', expr: { '==': [{ var: 'fields.size' }, 'l'] } }],
+    screens: [
+      {
+        id: 'p1',
+        name: '첫 장',
+        role: 'page',
+        numbered: true,
+        template: 'basic',
+        frame: frame(
+          'p1',
+          [
+            { id: 'size', kind: 'instance', use: 'test:segment', props: {}, bind: 'size' },
+            {
+              id: 'note',
+              kind: 'instance',
+              use: 'test:field',
+              props: { placeholder: '적어 주세요' },
+              bind: 'note',
+              visibleWhen: { '==': [{ var: 'answers.size' }, 'l'] },
+            },
+          ],
+          [
+            {
+              id: 'go',
+              kind: 'instance',
+              use: 'test:button',
+              props: { label: '다음' },
+              on: { press: [{ do: 'validate' }, { do: 'next' }] },
+            },
+          ],
+        ),
+      },
+      {
+        id: 'p2',
+        name: '둘째 장',
+        role: 'page',
+        numbered: true,
+        frame: frame('p2', [
+          { id: 'rate', kind: 'instance', use: 'test:stars', props: {}, bind: 'rate' },
+        ]),
+      },
+      { id: 'done', name: '끝', role: 'done', numbered: false, frame: frame('done', []) },
+    ],
+    submit: { label: '보내기', note: '' },
+    variants: [],
+  }
+}
+
+function code(fn: () => unknown): string {
+  try {
+    fn()
+  } catch (e) {
+    return e instanceof PlacementError ? e.code : 'other'
+  }
+  return 'none'
+}
+
+describe('v2 문서', () => {
+  it('스키마로 읽히고, 막는 문제가 없다', () => {
+    const d = doc()
+    expect(parseScreenDocument(JSON.parse(JSON.stringify(d)))).toEqual(d)
+    expect(validateScreenDocument(d, PACKS).filter((i) => i.level === 'error')).toEqual([])
+  })
+
+  it('문항 색인 — 장마다 놓인 차례, 조상 · 부품 조건은 when 으로', () => {
+    const form = formOf(doc(), PACKS)
+    expect(form.sections.map((s) => [s.key, s.questions.map((q) => q.key)])).toEqual([
+      ['p1', ['size', 'note']],
+      ['p2', ['rate']],
+    ])
+    const note = form.sections[0]!.questions[1]!
+    expect(note).toMatchObject({ kind: 'text', placeholder: '', multiline: false })
+    expect(note.when?.({ size: 'l' })).toBe(true)
+    expect(note.when?.({ size: 's' })).toBe(false)
+    expect(screenFields(doc(), doc().screens[0]!, {}).map((f) => f.key)).toEqual(['size'])
+  })
+
+  it('팩이 더한 값 종류로 답을 센다 — 팩이 없으면 모르는 종류', () => {
+    const rate = doc().fields[2]!
+    expect(fieldAnswered(PACKS, rate, 4)).toBe(true)
+    expect(fieldText(PACKS, rate, 3)).toBe('★★★')
+    expect(fieldAnswered([], rate, 4)).toBe(false)
+    const codes = validateScreenDocument(doc(), []).map((i) => i.code)
+    expect(codes).toContain('field-type')
+  })
+
+  it('계산값은 필드 · 호스트 변수를 읽는다', () => {
+    expect(scopeOf(doc(), { size: 'l' }, { partner: 'p' })).toMatchObject({
+      fields: { size: 'l' },
+      answers: { size: 'l' },
+      host: { partner: 'p' },
+      computed: { big: true },
+    })
   })
 })
 
 describe('동작 체인', () => {
   it('분기를 풀고 끝내는 동작 뒤는 버린다', () => {
-    const steps = planActions(
-      [
-        { do: 'validate' },
-        {
-          do: 'branch',
-          when: [
-            {
-              if: { '==': [{ var: 'fields.a' }, 'yes'] },
-              then: [{ do: 'go', to: 'p2', mode: 'push' }],
-            },
-          ],
-          else: [{ do: 'save' }],
-        },
-        { do: 'next' },
-        { do: 'submit' },
-      ],
-      { fields: { a: 'yes' } },
-    )
-    expect(steps).toEqual([{ do: 'validate' }, { do: 'go', to: 'p2', mode: 'push' }])
-    expect(
-      planActions([{ do: 'branch', when: [], else: [{ do: 'save' }] }, { do: 'next' }], {}),
-    ).toEqual([{ do: 'save' }, { do: 'next' }])
+    const chain = [
+      { do: 'validate' as const },
+      {
+        do: 'branch' as const,
+        when: [
+          {
+            if: { var: 'computed.big' },
+            then: [{ do: 'go' as const, to: 'p2', mode: 'sheet' as const }],
+          },
+        ],
+        else: [{ do: 'save' as const }],
+      },
+      { do: 'next' as const },
+      { do: 'submit' as const },
+    ]
+    expect(planActions(chain, scopeOf(doc(), { size: 'l' }))).toEqual([
+      { do: 'validate' },
+      { do: 'go', to: 'p2', mode: 'sheet' },
+    ])
+    expect(planActions(chain, scopeOf(doc(), { size: 's' }))).toEqual([
+      { do: 'validate' },
+      { do: 'save' },
+      { do: 'next' },
+    ])
   })
 })
 
 describe('배치 연산 — 부품 조합 · 배치까지만', () => {
-  const v2 = fromV1(v1)
-  const first = v2.screens[0]
-  if (!first) throw new Error('fixture')
-
-  it('칸에 부품을 놓고 속성 · 동작을 고친다', () => {
-    const { doc, id } = placeInstance(
-      v2,
+  it('칸에 부품을 놓고, 속성 · 연결 · 동작을 고친다', () => {
+    const { doc: d, id } = placeInstance(
+      doc(),
       PACKS,
-      { screen: first.id, frame: `${first.id}-body`, index: 0 },
-      {
-        use: 'campaign:chip',
-        props: { 글: '3분이면 끝나요' },
-      },
+      { screen: 'p2', frame: 'p2-body', index: 0 },
+      { use: 'test:status', props: { tone: 'warn', label: '마감 임박' } },
     )
-    expect(findNode(doc.screens[0]!.frame, id)).toMatchObject({ use: 'campaign:chip' })
-    const styled = setProps(doc, PACKS, `${first.id}-cta`, { 종류: '보조' })
-    expect(findNode(styled.screens[0]!.frame, `${first.id}-cta`)).toMatchObject({
-      props: { 종류: '보조' },
-    })
-    const linked = setOn(styled, `${first.id}-cta`, 'press', [
-      { do: 'open', href: 'https://miso.kr' },
-    ])
-    expect(findNode(linked.screens[0]!.frame, `${first.id}-cta`)).toMatchObject({
-      on: { press: [{ do: 'open', href: 'https://miso.kr' }] },
-    })
+    expect(findNode(d.screens[1]!.frame, id)).toMatchObject({ use: 'test:status' })
+    const styled = setProps(d, PACKS, 'go', { kind: 'secondary', label: undefined })
+    expect(findNode(styled.screens[0]!.frame, 'go')).toMatchObject({ props: { kind: 'secondary' } })
+    const unbound = setBind(styled, 'note', undefined)
+    expect(findNode(unbound.screens[0]!.frame, 'note')).not.toHaveProperty('bind')
+    const off = setOn(unbound, 'go', 'press', undefined)
+    expect(findNode(off.screens[0]!.frame, 'go')).not.toHaveProperty('on')
   })
 
   it('다른 화면의 칸으로 옮긴다', () => {
-    const second = v2.screens[1]!
-    const moved = moveNode(v2, 'b1', { screen: second.id, frame: `${second.id}-body`, index: 0 })
-    expect(findNode(moved.screens[0]!.frame, 'b1')).toBeNull()
-    expect(findNode(moved.screens[1]!.frame, 'b1')).not.toBeNull()
+    const moved = moveNode(doc(), 'note', { screen: 'p2', frame: 'p2-foot' })
+    expect(findNode(moved.screens[0]!.frame, 'note')).toBeNull()
+    expect(findNode(moved.screens[1]!.frame, 'note')).not.toBeNull()
   })
 
-  it('틀은 넣거나 빼거나 고칠 수 없다', () => {
-    const code = (fn: () => unknown) => {
-      try {
-        fn()
-      } catch (e) {
-        return e instanceof PlacementError ? e.code : 'other'
-      }
-      return 'none'
-    }
-    expect(code(() => removeNode(v2, `${first.id}-body`))).toBe('frame-locked')
+  it('틀은 넣거나 빼거나 고칠 수 없고, 칸이 아닌 틀에는 놓을 수 없다', () => {
+    const d = doc()
+    expect(code(() => removeNode(d, 'p1-body'))).toBe('frame-locked')
     expect(
       code(() =>
         placeNode(
-          v2,
-          { screen: first.id, frame: `${first.id}-frame` },
+          d,
+          { screen: 'p1', frame: 'p1-frame' },
           {
             id: 'x1',
             kind: 'text',
@@ -205,93 +276,104 @@ describe('배치 연산 — 부품 조합 · 배치까지만', () => {
         ),
       ),
     ).toBe('not-slot')
-    expect(code(() => setProps(v2, PACKS, `${first.id}-cta`, { 종류: '없는 종류' }))).toBe(
-      'props-invalid',
-    )
     expect(
       code(() =>
-        placeInstance(
-          v2,
-          PACKS,
-          { screen: first.id, frame: `${first.id}-body` },
-          { use: 'campaign:nope' },
+        placeNode(d, { screen: 'p1', frame: 'p1-body' }, {
+          id: 'x2',
+          kind: 'stack',
+          dir: 'h',
+          gap: 0,
+          pad: [0, 0, 0, 0],
+          justify: 'start',
+          align: 'start',
+          children: [],
+        } as never),
+      ),
+    ).toBe('frame-locked')
+    expect(code(() => setProps(d, PACKS, 'go', { kind: 'huge' }))).toBe('props-invalid')
+    expect(
+      code(() => placeInstance(d, PACKS, { screen: 'p1', frame: 'p1-body' }, { use: 'test:nope' })),
+    ).toBe('component-unknown')
+    expect(
+      code(() =>
+        placeNode(
+          d,
+          { screen: 'p1', frame: 'p1-body' },
+          {
+            id: 'size',
+            kind: 'text',
+            text: '',
+            align: 'left',
+          },
         ),
       ),
-    ).toBe('component-unknown')
+    ).toBe('id-taken')
   })
 
   it('새 화면은 팩의 틀로 짓는다', () => {
-    const doc = addScreen(v2, campaignPack, { id: 'extra', name: '덧', template: 'top' })
-    const screen = doc.screens.at(-1)!
-    expect(screen.frame.id).toBe('extra-frame')
-    expect(screen.frame.children.map((c) => c.id)).toEqual([
+    const d = addScreen(doc(), testPack, { id: 'extra', name: '덧', template: 'basic', at: 1 })
+    expect(d.screens.map((s) => s.id)).toEqual(['p1', 'extra', 'p2', 'done'])
+    expect(d.screens[1]!.frame.children.map((c) => c.id)).toEqual([
       'extra-head',
       'extra-body',
       'extra-foot',
     ])
+    expect(code(() => addScreen(d, testPack, { id: 'x', name: 'x', template: 'nope' }))).toBe(
+      'template-unknown',
+    )
   })
 })
 
 describe('검증', () => {
-  const v2 = fromV1(v1)
-
-  it('발행한 판의 필드 키 · 선택지 값을 지킨다', () => {
-    const choice = v2.fields.find((f) => f.type === 'choice')!
-    const changed: ScreenDocument = {
-      ...v2,
-      fields: v2.fields.map((f) =>
-        f.key === choice.key ? { ...f, options: (f.options ?? []).slice(1) } : f,
-      ),
-    }
-    const codes = validateScreenDocument(changed, PACKS, { published: v2 }).map((i) => i.code)
-    expect(codes).toContain('published-option')
-  })
-
-  it('값 연결 · 동작 · 호스트 동작을 본다', () => {
-    const first = v2.screens[0]!
-    let doc = placeInstance(
-      v2,
-      PACKS,
-      { screen: first.id, frame: `${first.id}-body` },
+  it('값 연결 · 동작 · 호스트 동작 · 팩', () => {
+    let d = placeInstance(
+      doc(),
+      [...PACKS],
+      { screen: 'p1', frame: 'p1-body' },
       {
-        use: 'campaign:question-choice',
-        bind: 'nope',
+        use: 'test:checkbox',
+        bind: 'size',
       },
     ).doc
-    doc = setOn(doc, `${first.id}-cta`, 'press', [
+    d = setOn(d, 'go', 'press', [
       { do: 'host', name: 'sendSms' },
-      { do: 'go', to: 'ghost', mode: 'sheet' },
+      { do: 'go', to: 'ghost', mode: 'push' },
     ])
-    const codes = validateScreenDocument(doc, PACKS, { hostActions: ['call'] }).map((i) => i.code)
-    expect(codes).toEqual(expect.arrayContaining(['bind-unknown', 'host-unknown', 'go-unknown']))
-  })
-
-  it('다른 팩의 부품은 문서가 그 팩을 써야 놓인다', () => {
-    const first = v2.screens[0]!
-    const doc = placeInstance(
-      v2,
-      [...PACKS, workstylePack],
-      { screen: first.id, frame: `${first.id}-body` },
-      {
-        use: 'workstyle:status',
-      },
-    ).doc
-    expect(validateScreenDocument(doc, [...PACKS, workstylePack]).map((i) => i.code)).toContain(
+    d = setOn(d, 'go', 'hover', [{ do: 'back' }])
+    const codes = validateScreenDocument(d, PACKS, { hostActions: ['call'] }).map((i) => i.code)
+    expect(codes).toEqual(
+      expect.arrayContaining(['bind-mismatch', 'host-unknown', 'go-unknown', 'event-unknown']),
+    )
+    const other = { ...doc(), packs: ['workstyle'] }
+    expect(validateScreenDocument(other, [workstylePack, testPack]).map((i) => i.code)).toContain(
       'pack-unknown',
     )
-    const both = { ...doc, packs: ['campaign', 'workstyle'] }
-    expect(
-      validateScreenDocument(both, [...PACKS, workstylePack]).filter((i) => i.level === 'error'),
-    ).toEqual([])
   })
 
-  it('모든 코드에 한국어 문장이 있다', () => {
-    for (const code of Object.keys(MESSAGES_KO))
+  it('발행한 판의 필드 키 · 값 종류 · 선택지 값을 지킨다', () => {
+    const published = doc()
+    const next: ScreenDocument = {
+      ...published,
+      fields: published.fields
+        .filter((f) => f.key !== 'rate')
+        .map((f) =>
+          f.key === 'size'
+            ? { ...f, options: f.options!.slice(1) }
+            : f.key === 'note'
+              ? { ...f, type: 'number' }
+              : f,
+        ),
+    }
+    const codes = validateScreenDocument(next, PACKS, { published }).map((i) => i.code)
+    expect(codes).toEqual(
+      expect.arrayContaining(['published-removed', 'published-type', 'published-option']),
+    )
+  })
+
+  it('모든 코드에 문장이 있고, 모르는 언어는 한국어', () => {
+    for (const c of Object.keys(MESSAGES_KO))
       expect(
-        issueMessage({
-          code: code as keyof typeof MESSAGES_KO,
-          params: { detail: '속성이 맞지 않아요' },
-        }),
+        issueMessage({ code: c as keyof typeof MESSAGES_KO, params: { detail: '맞지 않아요' } }),
       ).toBeTruthy()
     expect(issueMessage({ code: 'bind-unknown', params: { field: 'q9' } }, 'en')).toBe(
       '필드 「q9」가 없어요',

@@ -1,0 +1,2327 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`v1 → v2 옮기기 — insurance-2026-11(나간 설문) > 옮긴 결과가 같다 1`] = `
+{
+  "fields": [
+    {
+      "hint": "작업 중 고객 집·건물에 낸 사고를 물어 줘요",
+      "key": "liability",
+      "label": "영업배상책임보험에
+들어 계세요?",
+      "options": [
+        {
+          "label": "들었어요",
+          "value": "yes",
+        },
+        {
+          "label": "안 들었어요",
+          "value": "no",
+        },
+        {
+          "label": "모르겠어요",
+          "minor": true,
+          "value": "unknown",
+        },
+      ],
+      "required": true,
+      "short": "영업배상",
+      "type": "choice",
+    },
+    {
+      "hint": "옮기던 짐이 깨지거나 없어지면 물어 줘요",
+      "key": "cargo",
+      "label": "적재물배상책임보험에
+들어 계세요?",
+      "options": [
+        {
+          "label": "들었어요",
+          "value": "yes",
+        },
+        {
+          "label": "안 들었어요",
+          "value": "no",
+        },
+        {
+          "label": "모르겠어요",
+          "minor": true,
+          "value": "unknown",
+        },
+      ],
+      "required": true,
+      "short": "적재물",
+      "type": "choice",
+    },
+    {
+      "exclusive": "none",
+      "hint": "여러 개 고를 수 있어요",
+      "key": "otherKinds",
+      "label": "그 밖에 드신 보험이
+있으세요?",
+      "options": [
+        {
+          "label": "화물공제",
+          "value": "freight",
+        },
+        {
+          "label": "파손보험",
+          "value": "damage",
+        },
+        {
+          "label": "보증보험",
+          "value": "surety",
+        },
+        {
+          "label": "이사화물배송책임",
+          "value": "delivery",
+        },
+        {
+          "label": "없어요",
+          "value": "none",
+        },
+      ],
+      "required": true,
+      "short": "그 밖의 보험",
+      "type": "multi",
+    },
+    {
+      "key": "otherProduct",
+      "label": "보험사·상품명",
+      "required": false,
+      "short": "보험사·상품",
+      "type": "text",
+    },
+    {
+      "key": "premium",
+      "label": "지금 보험료는
+얼마나 내세요?",
+      "required": true,
+      "short": "보험료",
+      "type": "premium",
+    },
+    {
+      "key": "claimed",
+      "label": "보험으로 사고를
+처리해 보신 적 있으세요?",
+      "options": [
+        {
+          "label": "있어요",
+          "value": "yes",
+        },
+        {
+          "label": "없어요",
+          "value": "no",
+        },
+      ],
+      "required": true,
+      "short": "처리 경험",
+      "type": "choice",
+    },
+    {
+      "key": "claimNote",
+      "label": "어떤 일이었는지",
+      "required": false,
+      "short": "처리 내용",
+      "type": "text",
+    },
+    {
+      "hint": "아직 정해진 건 없어요. 들어 볼 만한 조건을 알려 주세요.",
+      "key": "joinIntent",
+      "label": "미소와 함께 단체로 드는 보험이
+생기면 가입하실 건가요?",
+      "options": [
+        {
+          "label": "들어 볼게요",
+          "value": "join",
+        },
+        {
+          "label": "가격과 보장을 보고 정할게요",
+          "value": "depends",
+        },
+        {
+          "label": "필요 없어요",
+          "value": "no",
+        },
+      ],
+      "required": true,
+      "short": "함께 드는 보험",
+      "type": "choice",
+    },
+    {
+      "key": "wantPremium",
+      "label": "한 달에 얼마면
+들어 보시겠어요?",
+      "max": 100000000,
+      "required": false,
+      "short": "바라는 보험료(월)",
+      "type": "number",
+      "unit": "원",
+    },
+    {
+      "key": "wantNote",
+      "label": "이유나 바라는 보장",
+      "required": false,
+      "short": "바라는 보장",
+      "type": "text",
+    },
+    {
+      "hint": "단체 보험료를 어림잡을 때 써요",
+      "key": "monthlyMoves",
+      "label": "한 달에 이사를
+몇 건 하세요?",
+      "max": 10000,
+      "required": true,
+      "short": "한 달 이사",
+      "type": "number",
+      "unit": "건",
+    },
+    {
+      "key": "nightIntent",
+      "label": "미소의 밤에 참여하고 싶으세요?",
+      "options": [
+        {
+          "label": "가고 싶어요",
+          "summary": "참석 희망",
+          "value": "want",
+        },
+        {
+          "label": "어려워요",
+          "summary": "어려움",
+          "value": "hard",
+        },
+        {
+          "label": "아직 몰라요",
+          "minor": true,
+          "summary": "미정",
+          "value": "unsure",
+        },
+      ],
+      "required": true,
+      "short": "미소의 밤",
+      "type": "choice",
+    },
+    {
+      "key": "comment",
+      "label": "보험이나 미소에
+바라는 점이 있으세요?",
+      "required": false,
+      "short": "의견",
+      "type": "text",
+    },
+  ],
+  "packs": [
+    "campaign",
+  ],
+  "schemaVersion": 2,
+  "screens": [
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "cover-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": false,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "cover-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "align": "center",
+                "color": "campaign/ink-sub",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b1",
+                "kind": "text",
+                "text": "이사 다- 끝났는데 TV 패널이 나가서",
+              },
+              {
+                "alt": "돈 날리는 경험",
+                "height": 88,
+                "id": "b2",
+                "kind": "image",
+                "src": "/campaign/insurance-2026-11/hero-brush.webp",
+                "width": 345,
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b3",
+                "kind": "text",
+                "text": "더 이상 하지 않도록
+미소에서 **보험**을 알아보고 있어요.",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "cover-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "cover-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "cover-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "cover-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "cover",
+      "name": "표지",
+      "numbered": false,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "prepare-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": false,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "prepare-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "alt": "",
+                "height": 95,
+                "id": "b4",
+                "kind": "image",
+                "src": "/campaign/insurance-2026-11/shield.webp",
+                "width": 98,
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "font": {
+                  "lineHeight": 36,
+                  "size": 26,
+                  "weight": 700,
+                },
+                "id": "b5",
+                "kind": "text",
+                "text": "미소에서 보험을 준비하기까지",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b6",
+                "kind": "text",
+                "text": "많은 사람을 설득하고
+보험사와 논의하고
+보험이 만들어지기까지
+
+많은 불확실한 과정들이 필요해요.",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "prepare-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "prepare-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "prepare-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "prepare-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "prepare",
+      "name": "보험을 준비하기까지",
+      "numbered": false,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "voice-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": false,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "voice-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "alt": "",
+                "height": 111,
+                "id": "b7",
+                "kind": "image",
+                "src": "/campaign/insurance-2026-11/miso-mover.webp",
+                "width": 95,
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "font": {
+                  "lineHeight": 36,
+                  "size": 26,
+                  "weight": 700,
+                },
+                "id": "b8",
+                "kind": "text",
+                "text": "파트너분들의 의견이 필요해요",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b9",
+                "kind": "text",
+                "text": "오늘은 그 첫 단계예요
+
+지금 이미 보험이 있는지
+보험에 단체 가입하실 의사가 있는지
+
+파트너님들의 불편을
+더 잘 듣고 싶어요",
+              },
+              {
+                "id": "b10",
+                "kind": "instance",
+                "props": {
+                  "글": "2분이면 끝나요",
+                },
+                "use": "campaign:chip",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "voice-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "voice-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "질문 시작하기",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "voice-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "voice-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "voice",
+      "name": "의견이 필요해요",
+      "numbered": false,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "liability-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "liability-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "liability",
+                "id": "b11",
+                "kind": "instance",
+                "props": {
+                  "배치": "큰칸",
+                },
+                "use": "campaign:question-choice",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "liability-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "liability-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "liability-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "liability-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "liability",
+      "name": "영업배상",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "cargo-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "cargo-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "cargo",
+                "id": "b12",
+                "kind": "instance",
+                "props": {
+                  "배치": "큰칸",
+                },
+                "use": "campaign:question-choice",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "cargo-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "cargo-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "cargo-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "cargo-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "cargo",
+      "name": "적재물",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "other-kinds-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "other-kinds-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "otherKinds",
+                "id": "b13",
+                "kind": "instance",
+                "props": {},
+                "use": "campaign:question-multi",
+              },
+              {
+                "bind": "otherProduct",
+                "id": "b14",
+                "kind": "instance",
+                "props": {
+                  "물음 숨기기": true,
+                  "안내": "보험사·상품명 (알면 적어 주세요)",
+                  "종류": "글",
+                },
+                "use": "campaign:question-input",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "other-kinds-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "other-kinds-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "other-kinds-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "other-kinds-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "other-kinds",
+      "name": "그 밖의 보험",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "premium-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "premium-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "premium",
+                "id": "b15",
+                "kind": "instance",
+                "props": {},
+                "use": "campaign:question-premium",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "premium-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "premium-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "premium-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "premium-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "premium",
+      "name": "보험료",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "claimed-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "claimed-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "claimed",
+                "id": "b16",
+                "kind": "instance",
+                "props": {
+                  "배치": "큰칸",
+                },
+                "use": "campaign:question-choice",
+              },
+              {
+                "bind": "claimNote",
+                "id": "b17",
+                "kind": "instance",
+                "props": {
+                  "물음 숨기기": true,
+                  "안내": "어떤 일이었는지 적어 주세요",
+                  "종류": "여러 줄",
+                },
+                "use": "campaign:question-input",
+                "visibleWhen": {
+                  "==": [
+                    {
+                      "var": "answers.claimed",
+                    },
+                    "yes",
+                  ],
+                },
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "claimed-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "claimed-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "claimed-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "claimed-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "claimed",
+      "name": "처리 경험",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "join-intent-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "join-intent-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "joinIntent",
+                "id": "b18",
+                "kind": "instance",
+                "props": {
+                  "배치": "목록",
+                },
+                "use": "campaign:question-choice",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "join-intent-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "join-intent-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "join-intent-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "join-intent-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "join-intent",
+      "name": "함께 드는 보험",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "want-premium-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "want-premium-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "wantPremium",
+                "id": "b19",
+                "kind": "instance",
+                "props": {
+                  "안내": "금액",
+                  "종류": "수",
+                },
+                "use": "campaign:question-input",
+              },
+              {
+                "bind": "wantNote",
+                "id": "b20",
+                "kind": "instance",
+                "props": {
+                  "물음 숨기기": true,
+                  "안내": "이유나 바라는 보장 (선택)",
+                  "종류": "여러 줄",
+                },
+                "use": "campaign:question-input",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "want-premium-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "want-premium-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "want-premium-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "want-premium-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "want-premium",
+      "name": "바라는 보험료",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+      "visibleWhen": {
+        "not": {
+          "==": [
+            {
+              "var": "answers.joinIntent",
+            },
+            "no",
+          ],
+        },
+      },
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "monthly-moves-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": true,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "monthly-moves-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "monthlyMoves",
+                "id": "b21",
+                "kind": "instance",
+                "props": {
+                  "안내": "건수",
+                  "종류": "수",
+                },
+                "use": "campaign:question-input",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "monthly-moves-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "monthly-moves-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "monthly-moves-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "monthly-moves-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "monthly-moves",
+      "name": "한 달 이사",
+      "numbered": true,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "better-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": false,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "better-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "alt": "",
+                "height": 95,
+                "id": "b22",
+                "kind": "image",
+                "src": "/campaign/insurance-2026-11/growth.webp",
+                "width": 95,
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "font": {
+                  "lineHeight": 36,
+                  "size": 26,
+                  "weight": 700,
+                },
+                "id": "b23",
+                "kind": "text",
+                "text": "더 나은 경험을 위해",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b24",
+                "kind": "text",
+                "text": "파트너분들이
+더 나은 환경에서
+더 많은 수익을
+미소에서 가져갈 수 있도록
+문제를 해결해 나가려 해요.
+
+여기엔 파트너님들의 의견이 가장 중요해요.
+
+그래서 **11월 18일**,
+이사 성수기 전 겨울을 맞아
+파트너님들의 의견을 듣는 자리를
+열어 보려 해요.
+
+마음만 같아선 모든 파트너분들을 모셔
+한 분 한 분 이야기를 나눠 보고 싶지만
+공간이 넉넉하지 않아
+참여를 희망하시는 분이 몇 분인지
+먼저 여쭤봐요.",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "better-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "better-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "better-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "better-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "better",
+      "name": "더 나은 경험",
+      "numbered": false,
+      "role": "page",
+      "template": "center",
+      "variant": "night",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "night-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": false,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "night-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "font": {
+                  "lineHeight": 36,
+                  "size": 26,
+                  "weight": 700,
+                },
+                "id": "b25",
+                "kind": "text",
+                "text": "미소의 밤에
+참여하고 싶으세요?",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink-sub",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b26",
+                "kind": "text",
+                "text": "파트너 대표님들과 미소 팀이 저녁을 함께하며
+미소방문 이야기를 나누는 자리예요.",
+              },
+              {
+                "align": "start",
+                "children": [
+                  {
+                    "id": "b27-1",
+                    "kind": "instance",
+                    "props": {
+                      "값": "11월 18일 (수) 18:00 ~ 20:30",
+                      "이름": "일시",
+                    },
+                    "use": "campaign:fact-row",
+                  },
+                  {
+                    "id": "b27-2",
+                    "kind": "instance",
+                    "props": {
+                      "값": "율곡로 6 트윈타워 B 5층 MISO",
+                      "이름": "장소",
+                    },
+                    "use": "campaign:fact-row",
+                  },
+                  {
+                    "id": "b27-3",
+                    "kind": "instance",
+                    "props": {
+                      "값": "저녁 식사, 주차",
+                      "이름": "제공",
+                    },
+                    "use": "campaign:fact-row",
+                  },
+                ],
+                "dir": "v",
+                "fill": "campaign/surface",
+                "gap": 12,
+                "id": "b27",
+                "justify": "start",
+                "kind": "stack",
+                "name": "사실 표",
+                "pad": [
+                  20,
+                  20,
+                  20,
+                  20,
+                ],
+                "radius": 16,
+                "stretch": true,
+              },
+              {
+                "bind": "nightIntent",
+                "id": "b28",
+                "kind": "instance",
+                "props": {
+                  "물음 숨기기": true,
+                  "배치": "큰칸",
+                },
+                "use": "campaign:question-choice",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink-sub",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b29",
+                "kind": "text",
+                "text": "희망해 주셔도 자리에 따라 모시기 어려울 수 있어요.
+확정 여부는 11월 12일(목)까지 문자로 알려 드려요.",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "night-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "night-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "night-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "night-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "night",
+      "name": "미소의 밤",
+      "numbered": false,
+      "role": "page",
+      "template": "center",
+      "variant": "night",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "comment-progress",
+                "kind": "instance",
+                "on": {
+                  "back": [
+                    {
+                      "do": "back",
+                    },
+                  ],
+                },
+                "props": {
+                  "step": false,
+                },
+                "use": "campaign:progress-header",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "comment-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "bind": "comment",
+                "id": "b30",
+                "kind": "instance",
+                "props": {
+                  "안내": "보험이나 미소에 바라는 점을 자유롭게 적어 주세요",
+                  "종류": "여러 줄",
+                },
+                "use": "campaign:question-input",
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "comment-body",
+            "justify": "center",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "id": "comment-cta",
+                "kind": "instance",
+                "on": {
+                  "press": [
+                    {
+                      "do": "validate",
+                    },
+                    {
+                      "do": "next",
+                    },
+                  ],
+                },
+                "props": {
+                  "글": "다음",
+                  "종류": "주요",
+                },
+                "use": "campaign:button",
+              },
+            ],
+            "dir": "v",
+            "gap": 12,
+            "id": "comment-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "comment-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "comment",
+      "name": "더 하실 말씀",
+      "numbered": false,
+      "role": "page",
+      "template": "center",
+    },
+    {
+      "frame": {
+        "align": "center",
+        "children": [
+          {
+            "align": "center",
+            "children": [],
+            "dir": "v",
+            "gap": 12,
+            "id": "done-head",
+            "justify": "start",
+            "kind": "stack",
+            "name": "머리",
+            "pad": [
+              12,
+              20,
+              8,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [
+              {
+                "align": "center",
+                "color": "campaign/ink",
+                "font": {
+                  "lineHeight": 36,
+                  "size": 26,
+                  "weight": 700,
+                },
+                "id": "b31",
+                "kind": "text",
+                "text": "더 나은 미소를 위해 노력할게요",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink-sub",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b32",
+                "kind": "text",
+                "text": "보내 주신 답은 보험 조건을 정할 때 꼭 참고할게요.",
+              },
+              {
+                "align": "center",
+                "color": "campaign/ink-sub",
+                "emphasis": true,
+                "font": {
+                  "lineHeight": 32,
+                  "size": 18,
+                  "weight": 400,
+                },
+                "id": "b33",
+                "kind": "text",
+                "text": "미소의 밤은 희망으로 받았고, 확정 여부는
+11월 12일(목)까지 문자로 알려 드려요.",
+                "visibleWhen": {
+                  "not": {
+                    "isEmpty": {
+                      "var": "answers.nightIntent",
+                    },
+                  },
+                },
+              },
+            ],
+            "dir": "v",
+            "gap": 24,
+            "grow": true,
+            "id": "done-body",
+            "justify": "start",
+            "kind": "stack",
+            "name": "본문",
+            "pad": [
+              32,
+              20,
+              32,
+              20,
+            ],
+          },
+          {
+            "align": "center",
+            "children": [],
+            "dir": "v",
+            "gap": 12,
+            "id": "done-foot",
+            "justify": "start",
+            "kind": "stack",
+            "name": "아래",
+            "pad": [
+              12,
+              20,
+              20,
+              20,
+            ],
+          },
+        ],
+        "dir": "v",
+        "gap": 0,
+        "id": "done-frame",
+        "justify": "start",
+        "kind": "stack",
+        "name": "화면",
+        "pad": [
+          0,
+          0,
+          0,
+          0,
+        ],
+        "slot": false,
+      },
+      "id": "done",
+      "name": "보낸 뒤",
+      "numbered": false,
+      "role": "done",
+      "template": "top",
+    },
+  ],
+  "sms": {
+    "lines": [
+      {
+        "text": "[미소] {파트너명} 대표님, 미소방문 파트너분들과 함께 드는 보험을 준비하고 있어요.",
+      },
+      {
+        "text": "지금 드신 보험과 의견을 알려 주시면 보험료와 보장을 정할 때 참고할게요.",
+      },
+      {
+        "text": "11월 18일(수) 미소의 밤 참석 희망도 함께 여쭤봐요.",
+        "variant": "night",
+      },
+      {
+        "text": "{마감}까지 답해 주세요.",
+      },
+      {
+        "text": "",
+      },
+      {
+        "text": "{링크}",
+      },
+    ],
+    "title": "미소방문 파트너 보험 설문",
+  },
+  "submit": {
+    "label": "보내기",
+    "note": "보낸 뒤에도 이 링크로 다시 고칠 수 있어요",
+  },
+  "variants": [
+    {
+      "key": "night",
+      "label": "미소의 밤 초대",
+    },
+  ],
+}
+`;

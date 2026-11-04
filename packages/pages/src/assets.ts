@@ -8,6 +8,8 @@
  * (캠페인 킷)으로도 그릴 수 있다. React · 디자인 시스템을 모른다.
  */
 
+import type { FrameNode } from './v2/screen'
+
 /** 글자 스타일 — 크기 · 굵기 · 줄 높이(px). */
 export type FontAsset = { size: number; weight: number; lineHeight: number }
 
@@ -46,9 +48,44 @@ export type PropDef =
 
 /**
  * 부품이 받는 값 — Seed 속성에는 없고 빌더가 더한다. 답 필드에 묶이는 입력 부품만 갖는다.
- * 키는 답 키(= 콜 템플릿 필드 키)가 된다.
+ * 키는 답 키(= 콜 템플릿 필드 키)가 된다. 코어 종류 밖의 값(예: 캠페인 팩의 `premium`)은 팩의 [ValueType] 으로 더한다.
  */
-export type ValueDef = 'text' | 'number' | 'choice' | 'choices' | 'boolean'
+export type ValueDef = 'text' | 'number' | 'choice' | 'choices' | 'boolean' | (string & {})
+
+/**
+ * 값 종류 — 필드의 `type`. 코어는 text · number · choice · multi · boolean 을 갖고([CORE_VALUE_TYPES]), 팩이 더할 수 있다.
+ * 답이 있는지 · 사람이 읽는 말 · 저장할 수 있는 꼴은 여기서 정한다(운영 표 · CSV · 진행이 읽는다).
+ */
+export type ValueType = {
+  id: string
+  name: string
+  /** 이 필드에 묶을 수 있는 부품의 값(ComponentAsset.value). */
+  accepts: readonly ValueDef[]
+  /** 선택지가 있어야 하나(choice · multi). */
+  options?: boolean | undefined
+  isAnswered(field: ValueField, value: unknown): boolean
+  format(field: ValueField, value: unknown): string
+  /** 답이 아니어도 저장해 둘 꼴인가(예: 고르다 만 보험료). 없으면 답일 때만. */
+  keep?: ((value: unknown) => boolean) | undefined
+}
+
+/** 값 종류가 읽는 필드의 부분 — 코어 필드(v2 Field)와 같은 이름. */
+export type ValueField = {
+  key: string
+  options?:
+    | ReadonlyArray<{ value: string; label: string; summary?: string | undefined }>
+    | undefined
+  unit?: string | undefined
+  max?: number | undefined
+}
+
+/** 화면 틀 — 새 화면을 만들 때 고르는 틀(머리 · 본문 · 아래 칸). 빌더는 틀을 고치지 않고 칸에 부품을 놓는다. */
+export type ScreenTemplate = {
+  id: string
+  name: string
+  /** 틀의 노드 id 는 화면마다 앞에 화면 id 를 붙여 쓴다([instantiateTemplate]). */
+  frame: FrameNode
+}
 
 /** 부품 에셋 — 이름 · 속성 · 값 · 일으키는 일. */
 export type ComponentAsset = {
@@ -60,6 +97,11 @@ export type ComponentAsset = {
   group?: string | undefined
   props: readonly PropDef[]
   value?: ValueDef | undefined
+  /**
+   * 값 연결을 싣는 Seed 속성 이름(예: 「질문 ID」) — Seed 라이브러리는 연결을 글 속성으로 들고 있다. 빌더는 이 속성을 속성 패널에
+   * 그리지 않고 값 연결(`bind`)로 다룬다.
+   */
+  bindProp?: string | undefined
   /** 일으키는 일 — 동작을 걸 수 있는 자리(예: press). */
   events?: readonly string[] | undefined
 }
@@ -77,6 +119,10 @@ export type AssetPack = {
   theme: ThemeAsset
   surfaces: readonly SurfaceAsset[]
   components: readonly ComponentAsset[]
+  /** 팩이 더하는 값 종류. */
+  valueTypes?: readonly ValueType[] | undefined
+  /** 새 화면의 틀. */
+  templates?: readonly ScreenTemplate[] | undefined
 }
 
 // ── 만들기 ──────────────────────────────────────────────────────────────
@@ -101,6 +147,12 @@ export function definePack(pack: AssetPack): AssetPack {
         throw new Error(
           `팩 ${pack.id}: ${c.key}.${p.name} 기본값 ${p.default} 이 선택지에 없습니다`,
         )
+    }
+    if (c.bindProp !== undefined) {
+      if (!c.value)
+        throw new Error(`팩 ${pack.id}: ${c.key} 는 값을 받지 않는데 bindProp 이 있습니다`)
+      if (!c.props.some((p) => p.name === c.bindProp && p.type === 'TEXT'))
+        throw new Error(`팩 ${pack.id}: ${c.key} 의 bindProp ${c.bindProp} 이 글 속성이 아닙니다`)
     }
   }
   return pack

@@ -8,6 +8,7 @@ import {
 import { Badge, Button, Checkbox, Chip, Input } from '@oobleck/workstyle/react'
 
 import { defineBlockKit } from '../blocks'
+import { ink, Pick, Picture } from './shared'
 import { defineKit } from '../kit'
 import { SEED_SELECTION } from '../layout'
 
@@ -44,60 +45,6 @@ export type WorkstyleContext = {
   /** 「질문 n / 전체」 — 없으면 진행 머리에 번호를 쓰지 않는다. */
   number?: { n: number; total: number } | null | undefined
   editing?: BlockEditing | undefined
-}
-
-const ink = (n: 1 | 2 | 3) => `var(--ink${String(n)})`
-
-// ── 고르기 상자 · 그림 ──────────────────────────────────────────────────────
-
-function Pick({ ctx, id, style, hidden, children }: PickProps<WorkstyleContext>) {
-  const editing = ctx.editing
-  if (!editing) return <div style={style}>{children}</div>
-  const picked = editing.selected === id
-  return (
-    <div
-      data-pick={id}
-      onClickCapture={() => editing.onSelect(id)}
-      style={{
-        ...style,
-        outline: picked ? '2px solid var(--acc)' : '1px dashed transparent',
-        outlineOffset: 2,
-        borderRadius: 'var(--radius-md)',
-        opacity: hidden ? 0.4 : undefined,
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-function imageStyle(image: CampaignImage): CSSProperties {
-  return {
-    display: 'block',
-    width: image.width,
-    maxWidth: '100%',
-    height: 'auto',
-    margin: '0 auto',
-    borderRadius: 'var(--radius-md)',
-  }
-}
-
-function Picture({ image }: { image: CampaignImage }) {
-  return image.src ? (
-    <img src={image.src} alt={image.alt} style={imageStyle(image)} />
-  ) : (
-    <div
-      style={{
-        border: '1px dashed var(--line)',
-        borderRadius: 'var(--radius-md)',
-        padding: '40px 0',
-        textAlign: 'center',
-        color: ink(3),
-      }}
-    >
-      그림을 올려 주세요
-    </div>
-  )
 }
 
 function ImagePart({
@@ -520,3 +467,6 @@ export const workstyleBlockKit = defineBlockKit<WorkstyleContext>({
     <p style={{ color: ink(3), textAlign: 'center' }}>빈 장이에요 · 블록을 넣어 주세요</p>
   ),
 })
+
+export { workstyleScreenKit } from './screen-kit'
+export type { WorkstyleScreenContext } from './screen-kit'

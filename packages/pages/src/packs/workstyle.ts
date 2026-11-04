@@ -38,7 +38,7 @@ export const workstyleTheme = defineTheme({
     label: { size: 11, weight: 560, lineHeight: 16 },
     small: { size: 11, weight: 450, lineHeight: 16 },
   },
-  defaults: { ink: 'ink1', textStyle: 'doc' },
+  defaults: { ink: 'ink1', textStyle: 'doc', accent: 'acc' },
 })
 
 const SIZE = ['sm', 'md', 'lg'] as const

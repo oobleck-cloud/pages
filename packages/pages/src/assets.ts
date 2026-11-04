@@ -23,8 +23,8 @@ export type ThemeAsset = {
   name: string
   colors: Readonly<Record<string, string>>
   textStyles: Readonly<Record<string, FontAsset>>
-  /** 아무것도 걸지 않았을 때 쓰는 이름 — 글자색 · 글자 스타일. */
-  defaults: { ink: string; textStyle: string }
+  /** 아무것도 걸지 않았을 때 쓰는 이름 — 글자색 · 글자 스타일 · 강조색(본문의 `**말**`). */
+  defaults: { ink: string; textStyle: string; accent?: string | undefined }
 }
 
 /**

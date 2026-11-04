@@ -12,3 +12,5 @@ export {
 } from './layout'
 export { BlockList, BlockPart, defineBlockKit } from './blocks'
 export type { BlockKit, BlockOf, BlockPartProps, BlockEditing, BlockListContext } from './blocks'
+export { ScreenView, NODE_SELECTION, defineScreenKit, screenSurface } from './screen'
+export type { InstanceProps, ScreenKit, ScreenRuntime } from './screen'

@@ -18,7 +18,10 @@ export function vspace(n: number): string {
   return `clamp(${String(n / 2)}px, ${((n * 100) / DESIGN_HEIGHT).toFixed(3)}dvh, ${String(n)}px)`
 }
 
-export function placementStyle(node: LayoutNode, parentDir: 'v' | 'h'): CSSProperties {
+export function placementStyle(
+  node: { grow?: boolean | undefined; stretch?: boolean | undefined },
+  parentDir: 'v' | 'h',
+): CSSProperties {
   return {
     ...(node.grow ? { flex: '1 1 auto' } : { flex: '0 0 auto' }),
     ...(node.stretch ? { alignSelf: 'stretch' } : {}),

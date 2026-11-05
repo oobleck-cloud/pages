@@ -75,20 +75,20 @@ describe('LayoutScreen — 같은 트리, 다른 킷', () => {
     expect(workstyle).toContain('data-kit="ws"')
     // 바탕 에셋: 캠페인은 흰 화면, Workstyle 은 n1.
     expect(campaign).toContain('background:#ffffff')
-    expect(workstyle).toContain('background:#1e1f22')
+    expect(workstyle).toContain('background:var(--n1, #1e1f22)')
     // 글 기본색도 테마에서.
     expect(campaign).toContain('color:#111111')
-    expect(workstyle).toContain('color:#e8e9ec')
+    expect(workstyle).toContain('color:var(--ink1, #e8e9ec)')
     // 킷에 없는 부품(chip)은 Missing 이 없으면 그리지 않는다.
     expect(campaign).not.toContain('없는 부품')
   })
 
   it('뿌리에 건 색이 바탕 에셋보다 앞선다', () => {
     const kit = kitFor(workstylePack, 'ws')
-    expect(screenFill(kit, { ...tree, fill: 'n0' })).toBe('#0e0f12')
-    expect(screenFill(kit, tree)).toBe('#1e1f22')
+    expect(screenFill(kit, { ...tree, fill: 'n0' })).toBe('var(--n0, #0e0f12)')
+    expect(screenFill(kit, tree)).toBe('var(--n1, #1e1f22)')
     expect(screenFill(kit, tree, { kind: 'surface', id: 'x', name: 'x', fill: 'acc' })).toBe(
-      '#63a0f1',
+      'var(--acc, #63a0f1)',
     )
   })
 })

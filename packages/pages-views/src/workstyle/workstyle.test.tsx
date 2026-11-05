@@ -79,7 +79,7 @@ describe('Workstyle 킷 — pages 기본 디자인 구현', () => {
     const html = renderToStaticMarkup(
       <LayoutScreen root={tree} kit={workstyleKit} ctx={ctx} fit={false} />,
     )
-    expect(html).toContain('background:#1e1f22')
+    expect(html).toContain('background:var(--n1, #1e1f22)')
     expect(html).toContain('오시겠어요?')
     expect(html).toMatch(/ws-btn ws-primary ws-lg/)
   })

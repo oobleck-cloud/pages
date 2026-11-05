@@ -95,9 +95,9 @@ describe('ScreenView — Workstyle 킷', () => {
     expect(html.match(/작게/g)).toHaveLength(2)
     expect(html).toContain('마감 임박')
     expect(html).toContain('>다음<')
-    // 바탕은 팩의 화면 바탕(n1), 강조는 테마 강조색(acc).
-    expect(html).toContain('background:#1e1f22')
-    expect(html).toContain('color:#63a0f1">답해</strong>')
+    // 바탕은 팩의 화면 바탕(n1), 강조는 테마 강조색(acc) — Workstyle 변수로, 없으면 hex.
+    expect(html).toContain('background:var(--n1, #1e1f22)')
+    expect(html).toContain('color:var(--acc, #63a0f1)">답해</strong>')
   })
 
   it('보이는 조건 — 숨으면 그리지 않고, 편집 중이면 흐리게 그린다', () => {
@@ -135,7 +135,7 @@ describe('ScreenView — Workstyle 킷', () => {
         ctx={{}}
       />,
     )
-    expect(html).toContain('background:#0e0f12')
+    expect(html).toContain('background:var(--n0, #0e0f12)')
   })
 })
 

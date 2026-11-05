@@ -5,11 +5,17 @@ import { defineTheme, definePack } from '../assets'
  * 그리는 것은 뷰 쪽 Workstyle 킷(@oobleck/workstyle/react)이고, 이 파일은 정의만 갖는다.
  * 속성 이름 · 선택지는 Seed 컴포넌트 속성과 Workstyle React props 가 같게 맞춘다(kind · size · state · tone …).
  */
+/** 토큰 이름 → `var(--이름, hex)` — 이름은 colors.css 변수와 같다. */
+function workstyleColors(fallback: Record<string, string>): Record<string, string> {
+  return Object.fromEntries(Object.entries(fallback).map(([k, hex]) => [k, `var(--${k}, ${hex})`]))
+}
+
 export const workstyleTheme = defineTheme({
   id: 'workstyle',
   name: 'Workstyle',
-  // 색 토큰 판 eb12e334(다크 하나) — @oobleck/workstyle colors.css 와 같은 값.
-  colors: {
+  // 색 토큰 판 eb12e334(다크 하나). 값은 @oobleck/workstyle colors.css 변수 — Workstyle 색을 바꾸면 화면도 따라간다.
+  // 그 CSS 를 부르지 않은 곳(테스트 · 다른 호스트)은 같은 판의 hex 로 그린다.
+  colors: workstyleColors({
     n0: '#0e0f12',
     n1: '#1e1f22',
     n2: '#27292c',
@@ -26,7 +32,7 @@ export const workstyleTheme = defineTheme({
     ok: '#62cd94',
     warn: '#ebb75b',
     bad: '#f27a6d',
-  },
+  }),
   // ds.css 글자 스타일.
   textStyles: {
     h1: { size: 30, weight: 700, lineHeight: 38 },

@@ -22,7 +22,7 @@ describe('에셋 팩', () => {
   })
 
   it('같은 토큰 이름이라도 테마가 다르면 다른 값 — 테마는 에셋으로 갈아 끼운다', () => {
-    expect(colorOf('acc', workstyleTheme)).toBe('#63a0f1')
+    expect(colorOf('acc', workstyleTheme)).toBe('var(--acc, #63a0f1)')
     expect(colorOf('campaign/primary', workstyleTheme)).toBeUndefined()
     expect(colorOf('#123456', workstyleTheme)).toBe('#123456')
   })
@@ -30,7 +30,7 @@ describe('에셋 팩', () => {
   it('바탕도 에셋 — 팩마다 화면 바탕이 있다', () => {
     for (const pack of [workstylePack]) {
       const screen = pack.surfaces.find((s) => s.id === 'screen')
-      expect(screen && resolveColor(pack.theme, screen.fill)).toMatch(/^#/)
+      expect(screen && resolveColor(pack.theme, screen.fill)).toMatch(/^var\(--\w+, #[0-9a-f]{6}\)$/)
     }
   })
 

@@ -61,14 +61,21 @@ export type FlowInput = {
   packs: readonly AssetPack[]
   answers: CampaignAnswers
   hostVars?: Readonly<Record<string, unknown>> | undefined
+  /** 켠 갈래 — 갈래(`variant`)가 붙은 화면은 그 갈래를 켰을 때만 보인다. */
+  variants?: readonly string[] | undefined
 }
 
 function scopeFor(input: FlowInput): ExprScope {
   return scopeOf(input.doc, input.answers, { ...(input.hostVars ?? {}) })
 }
 
-/** 화면이 지금 보이나 — 조건을 읽다 오류가 나면 숨긴다. */
-export function screenVisible(screen: Screen, scope: ExprScope): boolean {
+/** 화면이 지금 보이나 — 갈래를 켰고, 조건이 참이다(조건을 읽다 오류가 나면 숨긴다). */
+export function screenVisible(
+  screen: Screen,
+  scope: ExprScope,
+  variants: readonly string[] = [],
+): boolean {
+  if (screen.variant !== undefined && !variants.includes(screen.variant)) return false
   if (screen.visibleWhen === undefined) return true
   try {
     return evaluateCondition(screen.visibleWhen, scope)
@@ -78,13 +85,17 @@ export function screenVisible(screen: Screen, scope: ExprScope): boolean {
 }
 
 /** 지금 보이는 장(role page) — 문서 차례대로. */
-export function visiblePages(doc: ScreenDocument, scope: ExprScope): Screen[] {
-  return doc.screens.filter((s) => s.role === 'page' && screenVisible(s, scope))
+export function visiblePages(
+  doc: ScreenDocument,
+  scope: ExprScope,
+  variants: readonly string[] = [],
+): Screen[] {
+  return doc.screens.filter((s) => s.role === 'page' && screenVisible(s, scope, variants))
 }
 
 /** 첫 상태 — 첫 보이는 장에서. 보이는 장이 없으면 쌓인 화면이 비었다. */
 export function startFlow(input: FlowInput): FlowState {
-  const first = visiblePages(input.doc, scopeFor(input))[0]
+  const first = visiblePages(input.doc, scopeFor(input), input.variants)[0]
   return { stack: first ? [first.id] : [], sheets: [], submitted: false }
 }
 
@@ -105,7 +116,9 @@ export function flowProgress(
   input: FlowInput,
   state: FlowState,
 ): { index: number; total: number } | null {
-  const numbered = visiblePages(input.doc, scopeFor(input)).filter((s) => s.numbered)
+  const numbered = visiblePages(input.doc, scopeFor(input), input.variants).filter(
+    (s) => s.numbered,
+  )
   const at = numbered.findIndex((s) => s.id === state.stack.at(-1))
   return at < 0 ? null : { index: at + 1, total: numbered.length }
 }
@@ -127,7 +140,7 @@ export async function runChain(
   const stop = (s: FlowStop): FlowResult => ({ state, stop: s, ran })
 
   const goNext = (): Promise<FlowStop | undefined> => {
-    const pages = visiblePages(doc, scope)
+    const pages = visiblePages(doc, scope, input.variants)
     const base = state.stack.at(-1)
     // 지금 장이 숨었거나 차례 밖(보낸 뒤 화면)이면 문서 차례로 그 뒤 첫 보이는 장.
     const at = doc.screens.findIndex((s) => s.id === base)
@@ -138,7 +151,7 @@ export async function runChain(
   }
 
   const submit = async (): Promise<FlowStop | undefined> => {
-    for (const page of visiblePages(doc, scope)) {
+    for (const page of visiblePages(doc, scope, input.variants)) {
       const missing = missingFields(input, page, scope)
       if (!missing.length) continue
       // 빈 장으로 — 이미 쌓였으면 거기까지 되돌리고, 아니면 쌓는다.
@@ -151,7 +164,9 @@ export async function runChain(
       const r = await host.submit(input.answers)
       if (!r.ok) return { reason: 'host', action: 'submit', error: r.error }
     }
-    const done = doc.screens.find((s) => s.role === 'done' && screenVisible(s, scope))
+    const done = doc.screens.find(
+      (s) => s.role === 'done' && screenVisible(s, scope, input.variants),
+    )
     state = { stack: done ? [done.id] : state.stack, sheets: [], submitted: true }
     return undefined
   }
@@ -192,7 +207,7 @@ export async function runChain(
         break
       case 'go': {
         const target = byId.get(step.to)
-        if (!target || !screenVisible(target, scope)) {
+        if (!target || !screenVisible(target, scope, input.variants)) {
           const s = await goNext()
           if (s) return stop(s)
           break
@@ -222,4 +237,30 @@ export async function runChain(
     }
   }
   return { state, ran }
+}
+
+/**
+ * 이 체인을 지금 하면 보내기에 닿나 — submit, 또는 뒤에 보이는 장이 없는 next(숨은 화면으로 가는 go 포함).
+ * 아래 버튼이 「다음」 대신 보내기 글 · 안내를 보일지 고를 때 읽는다(하지는 않는다).
+ */
+export function chainSubmits(
+  input: FlowInput,
+  state: FlowState,
+  actions: readonly Action[],
+): boolean {
+  const scope = scopeFor(input)
+  const { doc } = input
+  const last = planActions(actions, scope).at(-1)
+  if (!last) return false
+  if (last.do === 'submit') return true
+  const nextIsSubmit = () => {
+    const at = doc.screens.findIndex((s) => s.id === state.stack.at(-1))
+    return !visiblePages(doc, scope, input.variants).some((p) => doc.screens.indexOf(p) > at)
+  }
+  if (last.do === 'next') return nextIsSubmit()
+  if (last.do === 'go') {
+    const target = doc.screens.find((s) => s.id === last.to)
+    return !target || !screenVisible(target, scope, input.variants) ? nextIsSubmit() : false
+  }
+  return false
 }

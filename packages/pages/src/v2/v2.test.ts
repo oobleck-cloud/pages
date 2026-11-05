@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { definePack } from '../assets'
 import { workstylePack } from '../packs/workstyle'
 import { planActions } from './actions'
-import { flowProgress, runChain, startFlow } from './runtime'
+import { chainSubmits, flowProgress, runChain, startFlow } from './runtime'
 import { fieldAnswered, fieldText, formOf, scopeOf, screenFields } from './form'
 import { issueMessage, MESSAGES_KO } from './messages'
 import {
@@ -489,5 +489,22 @@ describe('v2 런타임 — 동작 체인', () => {
       host,
     )
     expect(hidden.state).toMatchObject({ stack: ['done'], submitted: true })
+  })
+})
+
+describe('v2 런타임 — 갈래 · 보내기에 닿나', () => {
+  it('갈래가 붙은 장은 그 갈래를 켰을 때만 보이고, 마지막 장의 다음은 보내기다', () => {
+    const d = doc()
+    d.variants = [{ key: 'vip', label: 'VIP' }]
+    d.screens[1] = { ...d.screens[1]!, variant: 'vip' }
+    const off = { doc: d, packs: PACKS, answers: { size: 's' } }
+    const on = { ...off, variants: ['vip'] }
+    const s = startFlow(off)
+    const next: Action[] = [{ do: 'validate' }, { do: 'next' }]
+    expect(chainSubmits(off, s, next)).toBe(true)
+    expect(chainSubmits(on, s, next)).toBe(false)
+    expect(chainSubmits(on, s, [{ do: 'submit' }])).toBe(true)
+    expect(chainSubmits(on, s, [{ do: 'back' }])).toBe(false)
+    expect(flowProgress(off, s)).toEqual({ index: 1, total: 1 })
   })
 })

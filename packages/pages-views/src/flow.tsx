@@ -1,4 +1,11 @@
-import { currentScreenId, flowProgress, runChain, startFlow } from '@oobleck/pages'
+import {
+  chainSubmits,
+  currentScreenId,
+  flowProgress,
+  missingFields,
+  runChain,
+  startFlow,
+} from '@oobleck/pages'
 import { useCallback, useMemo, useRef, useState } from 'react'
 
 import { ScreenView } from './screen'
@@ -32,10 +39,17 @@ export type ScreenFlow = {
   /** 마지막 체인이 멈춘 까닭 — 답을 바꾸거나 다음 체인을 하면 지운다. */
   stop: FlowStop | null
   progress: { index: number; total: number } | null
+  /** 지금 장에서 꼭 답할 필드 가운데 빈 것. */
+  missing: string[]
+  /** 뒤로 갈 곳이 있나(시트 · 앞 장). */
+  canBack: boolean
+  /** 이 체인을 지금 하면 보내기에 닿나 — 아래 버튼 글 · 안내를 고를 때. */
+  submitsOn: (actions: ActionList) => boolean
   /** ScreenView 에 넘길 런타임(장 · 시트 같은 것을 쓴다). */
   runtime: ScreenRuntime
   setAnswer: (key: string, value: unknown) => void
   run: (actions: ActionList) => Promise<void>
+  reset: (state: FlowState) => void
 }
 
 export function useScreenFlow({
@@ -43,7 +57,10 @@ export function useScreenFlow({
   packs,
   host,
   hostVars,
+  variants,
+  answers: controlled,
   initialAnswers,
+  start,
   readOnly,
   onAnswer,
 }: {
@@ -51,23 +68,32 @@ export function useScreenFlow({
   packs: readonly AssetPack[]
   host: FlowHost
   hostVars?: Readonly<Record<string, unknown>> | undefined
+  /** 켠 갈래 — 갈래가 붙은 화면은 켰을 때만 보인다. */
+  variants?: readonly string[] | undefined
+  /** 답을 호스트가 들고 있으면(저장 훅 등) — 주면 [onAnswer] 로만 바뀐다. */
+  answers?: Readonly<Record<string, unknown>> | undefined
+  /** 호스트가 답을 들지 않을 때의 첫 답. */
   initialAnswers?: Readonly<Record<string, unknown>> | undefined
+  /** 첫 흐름 — 없으면 첫 보이는 장(이미 보낸 뒤 다시 열면 보낸 뒤 화면 등). */
+  start?: FlowState | undefined
+  /** 답을 바꾸지 못한다 — 장은 넘겨 볼 수 있다. */
   readOnly?: boolean | undefined
   /** 답이 바뀔 때마다(임시 저장 등). */
   onAnswer?: ((key: string, value: unknown, answers: Record<string, unknown>) => void) | undefined
 }): ScreenFlow {
-  const [answers, setAnswers] = useState<Record<string, unknown>>(() => ({
+  const [own, setOwn] = useState<Record<string, unknown>>(() => ({
     ...(initialAnswers ?? {}),
   }))
-  const [state, setState] = useState<FlowState>(() =>
-    startFlow({ doc, packs, answers: { ...(initialAnswers ?? {}) }, hostVars }),
+  const answers = controlled ?? own
+  const [state, setState] = useState<FlowState>(
+    () => start ?? startFlow({ doc, packs, answers: { ...answers }, hostVars, variants }),
   )
   const [busy, setBusy] = useState(false)
   const [stop, setStop] = useState<FlowStop | null>(null)
 
   // 체인은 비동기라 마지막 답 · 상태를 ref 로 읽는다(누른 순간의 렌더 값이 아니라).
-  const live = useRef({ answers, state, busy: false })
-  live.current.answers = answers
+  const live = useRef({ answers: { ...answers }, state, busy: false })
+  live.current.answers = { ...answers }
   live.current.state = state
 
   const setAnswer = useCallback(
@@ -75,22 +101,22 @@ export function useScreenFlow({
       if (readOnly) return
       const next = { ...live.current.answers, [key]: value }
       live.current.answers = next
-      setAnswers(next)
+      if (!controlled) setOwn(next)
       setStop((s) => (s?.reason === 'invalid' ? null : s))
       onAnswer?.(key, value, next)
     },
-    [readOnly, onAnswer],
+    [readOnly, onAnswer, controlled],
   )
 
   const run = useCallback(
     async (actions: ActionList) => {
-      if (live.current.busy || readOnly) return
+      if (live.current.busy) return
       live.current.busy = true
       setBusy(true)
       setStop(null)
       try {
         const r = await runChain(
-          { doc, packs, answers: live.current.answers, hostVars },
+          { doc, packs, answers: live.current.answers, hostVars, variants },
           live.current.state,
           actions,
           host,
@@ -103,10 +129,18 @@ export function useScreenFlow({
         setBusy(false)
       }
     },
-    [doc, packs, hostVars, host, readOnly],
+    [doc, packs, hostVars, variants, host],
   )
 
+  /** 흐름을 바꾼다 — 보낸 뒤 「답 고치기」 · 편집기에서 장 고르기처럼 체인 밖에서. */
+  const reset = useCallback((next: FlowState) => {
+    live.current.state = next
+    setState(next)
+    setStop(null)
+  }, [])
+
   const byId = useMemo(() => new Map(doc.screens.map((s) => [s.id, s])), [doc])
+  const input = { doc, packs, answers: { ...answers }, hostVars, variants }
   const runtime: ScreenRuntime = {
     doc,
     answers,
@@ -118,17 +152,22 @@ export function useScreenFlow({
     },
   }
   const top = state.stack.at(-1)
+  const page = (top !== undefined ? byId.get(top) : undefined) ?? null
   return {
     state,
-    page: (top !== undefined ? byId.get(top) : undefined) ?? null,
+    page,
     sheets: state.sheets.flatMap((id) => byId.get(id) ?? []),
     answers,
     busy,
     stop,
-    progress: flowProgress({ doc, packs, answers, hostVars }, state),
+    progress: flowProgress(input, state),
+    missing: page ? missingFields(input, page).map((f) => f.key) : [],
+    canBack: state.sheets.length > 0 || state.stack.length > 1,
+    submitsOn: (actions) => chainSubmits(input, state, actions),
     runtime,
     setAnswer,
     run,
+    reset,
   }
 }
 

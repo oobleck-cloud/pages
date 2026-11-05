@@ -40,6 +40,7 @@ const FontSchema = z.object({
   size: z.number().positive(),
   weight: z.number().int().positive(),
   lineHeight: z.number().positive(),
+  tracking: z.number().optional(),
 })
 
 const TextSchema = z.object({
@@ -101,6 +102,8 @@ export type FrameNode = {
   radius?: number | undefined
   /** 빌더가 부품을 놓을 수 있는 칸인가 — 아니면 안을 고칠 수 없다(시안의 장식 묶음 등). 기본 참. */
   slot?: boolean | undefined
+  /** 스크롤해도 화면 위 · 아래에 붙어 있는 틀(머리 · 아래 버튼). 화면 틀이 정한다. */
+  pin?: 'top' | 'bottom' | undefined
   children: ScreenNode[]
 }
 
@@ -120,6 +123,7 @@ const FrameSchema: z.ZodType<FrameNode> = z.lazy(() =>
     fill: z.string().optional(),
     radius: z.number().nonnegative().optional(),
     slot: z.boolean().optional(),
+    pin: z.enum(['top', 'bottom']).optional(),
     children: z.array(ScreenNodeSchema),
   }),
 )

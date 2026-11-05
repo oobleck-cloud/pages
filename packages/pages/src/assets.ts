@@ -11,7 +11,13 @@
 import type { FrameNode } from './v2/screen'
 
 /** 글자 스타일 — 크기 · 굵기 · 줄 높이(px). */
-export type FontAsset = { size: number; weight: number; lineHeight: number }
+export type FontAsset = {
+  size: number
+  weight: number
+  lineHeight: number
+  /** 자간(em) — 없으면 0. */
+  tracking?: number | undefined
+}
 
 /**
  * 테마 에셋 — 색 토큰과 글자 스타일. 문서의 색 · 글자 스타일은 이 이름으로 걸고, 그릴 때 테마에서 값을 찾는다.

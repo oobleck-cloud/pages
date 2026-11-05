@@ -193,6 +193,7 @@ export {
   fieldAnswered,
   fieldText,
   screenFields,
+  questionOf,
 } from './v2/form'
 export {
   PlacementError,
@@ -219,6 +220,7 @@ export {
   visiblePages,
   screenVisible,
   flowProgress,
+  chainSubmits,
 } from './v2/runtime'
 export type { FlowState, FlowHost, FlowStop, FlowResult, FlowInput, HostResult } from './v2/runtime'
 export { validateScreenDocument } from './v2/validate'

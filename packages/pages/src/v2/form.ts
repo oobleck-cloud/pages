@@ -82,7 +82,8 @@ export function propOf(
   return component?.props.find((p) => p.name === name)?.default
 }
 
-function questionOf(
+/** 묶인 부품 하나의 문항(v1 꼴) — 그리기 꼴은 부품 속성에서 읽는다. 킷이 v1 답 칸을 그대로 쓸 때도 읽는다. */
+export function questionOf(
   field: Field,
   node: InstanceNode,
   component: ComponentAsset | undefined,

@@ -93,6 +93,10 @@ type Env<C> = {
   fields: ReadonlyMap<string, Field>
   scope: ExprScope
   ctx: C
+  /** 세로 간격 — 낮은 화면에서 줄이나(fit) 그대로인가. */
+  space: (n: number) => string
+  /** 화면 바탕 — 붙어 있는 틀(pin)이 아래 글을 가린다. */
+  surface: string | undefined
 }
 
 function shown(node: ScreenNode, scope: ExprScope): boolean {
@@ -127,19 +131,30 @@ function NodeView<C>({
     </Pick>
   )
   switch (node.kind) {
-    case 'stack':
+    case 'stack': {
+      const pad = node.pad.map((p, i) => (i % 2 === 0 ? env.space(p) : `${String(p)}px`))
+      // 아래에 붙은 틀은 홈 막대(safe area)만큼 더 띄운다.
+      if (node.pin === 'bottom') pad[2] = `max(${pad[2] ?? '0px'}, env(safe-area-inset-bottom))`
       return (
         <div
           data-node={node.id}
           style={{
             ...place,
+            ...(node.pin
+              ? {
+                  position: 'sticky',
+                  [node.pin]: 0,
+                  zIndex: 10,
+                  background: resolveColor(theme, node.fill) ?? env.surface,
+                }
+              : {}),
             display: 'flex',
             flexDirection: node.dir === 'v' ? 'column' : 'row',
-            gap: node.dir === 'v' ? vspace(node.gap) : node.gap,
-            padding: node.pad.map((p, i) => (i % 2 === 0 ? vspace(p) : `${String(p)}px`)).join(' '),
+            gap: node.dir === 'v' ? env.space(node.gap) : node.gap,
+            padding: pad.join(' '),
             justifyContent: JUSTIFY[node.justify],
             alignItems: ALIGN[node.align],
-            background: resolveColor(theme, node.fill),
+            ...(node.pin ? {} : { background: resolveColor(theme, node.fill) }),
             borderRadius: node.radius,
             minWidth: 0,
             opacity: visible ? undefined : 0.4,
@@ -150,6 +165,7 @@ function NodeView<C>({
           ))}
         </div>
       )
+    }
     case 'text': {
       const f = resolveFont(theme, node.style, node.font)
       const accent = resolveColor(theme, theme.defaults.accent)
@@ -159,6 +175,7 @@ function NodeView<C>({
             fontSize: f.size,
             fontWeight: f.weight,
             lineHeight: `${String(f.lineHeight)}px`,
+            ...(f.tracking ? { letterSpacing: `${String(f.tracking)}em` } : {}),
             color: resolveColor(theme, node.color) ?? resolveColor(theme, theme.defaults.ink),
             textAlign: node.align,
             whiteSpace: 'pre-line',
@@ -249,12 +266,15 @@ export function ScreenView<C>({
   runtime,
   ctx,
   className,
+  fit = true,
 }: {
   screen: Screen
   kits: readonly ScreenKit<C>[]
   runtime: ScreenRuntime
   ctx: C
   className?: string | undefined
+  /** 낮은 화면에서 세로 간격을 높이에 비례해 줄인다(시안 장). 끄면 적은 px 그대로. 기본 참. */
+  fit?: boolean | undefined
 }): ReactNode {
   const base = kits.find((k) => k.pack.id === runtime.doc.packs[0]) ?? kits[0]
   if (!base) return null
@@ -265,12 +285,14 @@ export function ScreenView<C>({
     fields: new Map(runtime.doc.fields.map((f) => [f.key, f])),
     scope: scopeOf(runtime.doc, { ...runtime.answers }, { ...(runtime.host ?? {}) }),
     ctx,
+    space: fit ? vspace : (n) => `${String(n)}px`,
+    surface: screenSurface(base, screen),
   }
   return (
     <div
       className={className}
       data-screen={screen.id}
-      style={{ display: 'flex', flexDirection: 'column', background: screenSurface(base, screen) }}
+      style={{ display: 'flex', flexDirection: 'column', background: env.surface }}
     >
       <NodeView node={{ ...screen.frame, grow: true }} env={env} parentDir="v" />
     </div>

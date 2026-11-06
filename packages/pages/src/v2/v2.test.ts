@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { definePack } from '../assets'
 import { workstylePack } from '../packs/workstyle'
 import { planActions } from './actions'
-import { chainSubmits, flowProgress, runChain, startFlow } from './runtime'
+import { chainSubmits, flowProgress, runChain, settleFlow, startFlow } from './runtime'
 import { fieldAnswered, fieldText, formOf, scopeOf, screenFields } from './form'
 import { issueMessage, MESSAGES_KO } from './messages'
 import {
@@ -506,5 +506,50 @@ describe('v2 런타임 — 갈래 · 보내기에 닿나', () => {
     expect(chainSubmits(on, s, [{ do: 'submit' }])).toBe(true)
     expect(chainSubmits(on, s, [{ do: 'back' }])).toBe(false)
     expect(flowProgress(off, s)).toEqual({ index: 1, total: 1 })
+  })
+})
+
+describe('v2 런타임 — 숨은 장 걷어 내기', () => {
+  // p1 · p2 · p3 — p2 는 크기가 l 일 때만 보인다.
+  const docOf = () => {
+    const d = doc()
+    const p2 = d.screens[1]!
+    d.screens = [
+      d.screens[0]!,
+      { ...p2, visibleWhen: { '==': [{ var: 'answers.size' }, 'l'] } },
+      { ...p2, id: 'p3', name: '셋째 장' },
+      d.screens[2]!,
+    ]
+    return d
+  }
+  const input = (size: string) => ({ doc: docOf(), packs: PACKS, answers: { size } })
+
+  it('바뀐 것이 없으면 같은 상태를 돌려준다', () => {
+    const s = { stack: ['p1', 'p2'], sheets: [], submitted: false }
+    expect(settleFlow(input('l'), s)).toBe(s)
+  })
+
+  it('지금 장이 숨으면 그 뒤 첫 보이는 장으로', () => {
+    const s = { stack: ['p1', 'p2'], sheets: [], submitted: false }
+    expect(settleFlow(input('s'), s).stack).toEqual(['p1', 'p3'])
+  })
+
+  it('쌓인 장 가운데 숨은 장은 빼서 뒤로 가기가 닿지 않는다', () => {
+    const s = { stack: ['p1', 'p2', 'p3'], sheets: [], submitted: false }
+    expect(settleFlow(input('s'), s).stack).toEqual(['p1', 'p3'])
+  })
+
+  it('뒤에 보이는 장이 없으면 앞쪽 가장 가까운 장으로, 이미 쌓였으면 거기까지', () => {
+    const d = docOf()
+    d.screens[2] = { ...d.screens[2]!, visibleWhen: { '==': [1, 2] } }
+    const s = { stack: ['p1', 'p2'], sheets: [], submitted: false }
+    expect(settleFlow({ doc: d, packs: PACKS, answers: { size: 's' } }, s).stack).toEqual(['p1'])
+  })
+
+  it('숨은 시트는 닫고, 보낸 뒤 화면은 건드리지 않는다', () => {
+    const s = { stack: ['p1'], sheets: ['p2'], submitted: false }
+    expect(settleFlow(input('s'), s).sheets).toEqual([])
+    const done = { stack: ['done'], sheets: [], submitted: true }
+    expect(settleFlow(input('s'), done)).toBe(done)
   })
 })

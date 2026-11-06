@@ -4,9 +4,10 @@ import {
   flowProgress,
   missingFields,
   runChain,
+  settleFlow,
   startFlow,
 } from '@oobleck/pages'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { ScreenView } from './screen'
 
@@ -26,6 +27,7 @@ import type { ReactNode } from 'react'
 /**
  * SPA 흐름 — 화면 문서(v2)를 답 · 흐름 상태와 함께 움직인다. 부품이 일으킨 일의 동작 체인은 코어 [runChain] 이 하고,
  * 이 훅은 그 결과(쌓인 화면 · 시트 · 멈춘 까닭)를 React 상태로 든다. 체인이 도는 동안 들어온 일은 버린다(두 번 누르기).
+ * 답 · 갈래 · 호스트 값이 바뀌어 지금 장이나 쌓인 장이 숨으면 [settleFlow] 로 걷어 낸다(지금 장은 그 뒤 첫 보이는 장으로).
  */
 export type ScreenFlow = {
   state: FlowState
@@ -85,16 +87,22 @@ export function useScreenFlow({
     ...(initialAnswers ?? {}),
   }))
   const answers = controlled ?? own
-  const [state, setState] = useState<FlowState>(
+  const [raw, setState] = useState<FlowState>(
     () => start ?? startFlow({ doc, packs, answers: { ...answers }, hostVars, variants }),
   )
+  // 숨은 장을 걷어 낸 흐름 — 렌더는 이것을 쓰고(한 번도 숨은 장을 그리지 않게), 바뀌었으면 아래 효과가 상태로 굳힌다.
+  const state = settleFlow({ doc, packs, answers: { ...answers }, hostVars, variants }, raw)
   const [busy, setBusy] = useState(false)
   const [stop, setStop] = useState<FlowStop | null>(null)
 
   // 체인은 비동기라 마지막 답 · 상태를 ref 로 읽는다(누른 순간의 렌더 값이 아니라).
   const live = useRef({ answers: { ...answers }, state, busy: false })
   live.current.answers = { ...answers }
-  live.current.state = state
+  if (!live.current.busy) live.current.state = state
+
+  useEffect(() => {
+    if (state !== raw && !live.current.busy) setState(state)
+  }, [state, raw])
 
   const setAnswer = useCallback(
     (key: string, value: unknown) => {
@@ -115,12 +123,8 @@ export function useScreenFlow({
       setBusy(true)
       setStop(null)
       try {
-        const r = await runChain(
-          { doc, packs, answers: live.current.answers, hostVars, variants },
-          live.current.state,
-          actions,
-          host,
-        )
+        const at = { doc, packs, answers: live.current.answers, hostVars, variants }
+        const r = await runChain(at, settleFlow(at, live.current.state), actions, host)
         live.current.state = r.state
         setState(r.state)
         setStop(r.stop ?? null)

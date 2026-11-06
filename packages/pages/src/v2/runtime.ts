@@ -99,6 +99,46 @@ export function startFlow(input: FlowInput): FlowState {
   return { stack: first ? [first.id] : [], sheets: [], submitted: false }
 }
 
+/**
+ * 답 · 갈래 · 호스트 값이 바뀌어 숨은 화면을 흐름에서 걷어 낸다 — 바뀐 것이 없으면 [state] 그대로(같은 객체).
+ *
+ * - 쌓인 장 가운데 숨은 장은 뺀다(뒤로 가기가 숨은 장에 닿지 않게).
+ * - 맨 위 장이 숨었으면 문서 차례로 그 뒤 첫 보이는 장으로, 뒤에 없으면 앞쪽 가장 가까운 보이는 장으로 바꾼다.
+ *   그 장이 이미 쌓였으면 거기까지 되돌린다. 보이는 장이 하나도 없으면 그대로 둔다.
+ * - 숨은 시트는 닫는다. 장이 아닌 화면(보낸 뒤 화면)은 건드리지 않는다.
+ */
+export function settleFlow(input: FlowInput, state: FlowState): FlowState {
+  const { doc } = input
+  const scope = scopeFor(input)
+  const byId = new Map(doc.screens.map((s) => [s.id, s]))
+  const shown = (id: string) => {
+    const s = byId.get(id)
+    return !s || screenVisible(s, scope, input.variants)
+  }
+  const hiddenPage = (id: string) => byId.get(id)?.role === 'page' && !shown(id)
+
+  const sheets = state.sheets.filter(shown)
+  let stack = state.stack
+  const top = stack.at(-1)
+  if (top !== undefined && hiddenPage(top)) {
+    const pages = visiblePages(doc, scope, input.variants)
+    if (pages.length) {
+      const at = doc.screens.findIndex((s) => s.id === top)
+      const after = pages.find((p) => doc.screens.indexOf(p) > at)
+      const before = pages.filter((p) => doc.screens.indexOf(p) < at).at(-1)
+      const to = (after ?? before)!.id
+      const rest = stack.slice(0, -1).filter((id) => !hiddenPage(id))
+      const was = rest.indexOf(to)
+      stack = was >= 0 ? rest.slice(0, was + 1) : [...rest, to]
+    }
+  } else if (stack.some(hiddenPage)) {
+    stack = stack.filter((id) => !hiddenPage(id))
+  }
+
+  if (stack === state.stack && sheets.length === state.sheets.length) return state
+  return { ...state, stack, sheets }
+}
+
 /** 지금 보이는 화면 — 시트가 떴으면 맨 위 시트. */
 export function currentScreenId(state: FlowState): string | null {
   return state.sheets.at(-1) ?? state.stack.at(-1) ?? null

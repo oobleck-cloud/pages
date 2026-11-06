@@ -214,6 +214,7 @@ export {
 } from './v2/ops'
 export {
   startFlow,
+  settleFlow,
   runChain,
   currentScreenId,
   missingFields,

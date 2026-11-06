@@ -244,4 +244,28 @@ describe('흐름 뷰', () => {
     expect(html).toContain('role="dialog"')
     expect(html).toContain('data-screen="s1"')
   })
+
+  it('답이 바뀌어 지금 장이 숨으면 그 뒤 첫 보이는 장을 그린다', () => {
+    const hidden: Screen = {
+      ...screen,
+      id: 'p2',
+      name: '크게만',
+      visibleWhen: { '==': [{ var: 'answers.size' }, 'l'] },
+    }
+    const after: Screen = { ...screen, id: 'p3', name: '셋째 장' }
+    const d: ScreenDocument = { ...doc, screens: [screen, hidden, after] }
+    function Hidden() {
+      const flow = useScreenFlow({
+        doc: d,
+        packs: [workstylePack],
+        host,
+        answers: { size: 's' },
+        start: { stack: ['p1', 'p2'], sheets: [], submitted: false },
+      })
+      return <ScreenFlowView flow={flow} kits={[workstyleScreenKit]} ctx={{}} />
+    }
+    const html = renderToStaticMarkup(<Hidden />)
+    expect(html).toContain('data-flow-screen="p3"')
+    expect(html).not.toContain('data-screen="p2"')
+  })
 })

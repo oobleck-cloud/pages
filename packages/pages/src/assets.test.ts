@@ -30,7 +30,9 @@ describe('에셋 팩', () => {
   it('바탕도 에셋 — 팩마다 화면 바탕이 있다', () => {
     for (const pack of [workstylePack]) {
       const screen = pack.surfaces.find((s) => s.id === 'screen')
-      expect(screen && resolveColor(pack.theme, screen.fill)).toMatch(/^var\(--\w+, #[0-9a-f]{6}\)$/)
+      expect(screen && resolveColor(pack.theme, screen.fill)).toMatch(
+        /^var\(--\w+, #[0-9a-f]{6}\)$/,
+      )
     }
   })
 

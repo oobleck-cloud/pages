@@ -97,6 +97,8 @@ type Env<C> = {
   space: (n: number) => string
   /** 화면 바탕 — 붙어 있는 틀(pin)이 아래 글을 가린다. */
   surface: string | undefined
+  /** 틀 칸 id → 그 칸 맨 앞에 끼우는 호스트 내용. */
+  lead: Readonly<Record<string, ReactNode>> | undefined
 }
 
 function shown(node: ScreenNode, scope: ExprScope): boolean {
@@ -160,6 +162,11 @@ function NodeView<C>({
             opacity: visible ? undefined : 0.4,
           }}
         >
+          {env.lead?.[node.id] !== undefined ? (
+            <div data-lead={node.id} style={{ alignSelf: 'stretch' }}>
+              {env.lead[node.id]}
+            </div>
+          ) : null}
           {node.children.map((c) => (
             <NodeView key={c.id} node={c} env={env} parentDir={node.dir} />
           ))}
@@ -267,6 +274,7 @@ export function ScreenView<C>({
   ctx,
   className,
   fit = true,
+  lead,
 }: {
   screen: Screen
   kits: readonly ScreenKit<C>[]
@@ -275,6 +283,11 @@ export function ScreenView<C>({
   className?: string | undefined
   /** 낮은 화면에서 세로 간격을 높이에 비례해 줄인다(시안 장). 끄면 적은 px 그대로. 기본 참. */
   fit?: boolean | undefined
+  /**
+   * 틀 칸 id → 그 칸 맨 앞에 끼우는 호스트 내용(미리보기 안내 · 마감 안내 등). 문서에 없는 것이라 편집기에 잡히지 않고,
+   * 비어 있는(null · false) 값은 끼우지 않는다.
+   */
+  lead?: Readonly<Record<string, ReactNode>> | undefined
 }): ReactNode {
   const base = kits.find((k) => k.pack.id === runtime.doc.packs[0]) ?? kits[0]
   if (!base) return null
@@ -287,6 +300,11 @@ export function ScreenView<C>({
     ctx,
     space: fit ? vspace : (n) => `${String(n)}px`,
     surface: screenSurface(base, screen),
+    lead: lead
+      ? Object.fromEntries(
+          Object.entries(lead).filter(([, v]) => v !== null && v !== undefined && v !== false),
+        )
+      : undefined,
   }
   return (
     <div

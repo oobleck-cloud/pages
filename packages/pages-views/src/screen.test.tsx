@@ -140,20 +140,20 @@ describe('ScreenView — Workstyle 킷', () => {
 })
 
 describe('ScreenView — 호스트가 끼우는 내용', () => {
-  it('틀 칸 맨 앞에 끼우고, 빈 값은 끼우지 않는다', () => {
+  it('노드 바로 앞에 끼우고, 빈 값은 끼우지 않는다', () => {
     const html = renderToStaticMarkup(
       <ScreenView
         screen={screen}
         kits={[workstyleScreenKit]}
         runtime={runtime()}
         ctx={{}}
-        lead={{ 'p1-frame': <p>미리보기 안내</p>, nowhere: null }}
+        lead={{ t: <p>미리보기 안내</p>, seg: null }}
       />,
     )
     expect(html).toMatch(
-      /data-node="p1-frame"[^>]*><div data-lead="p1-frame"[^>]*><p>미리보기 안내<\/p>/,
+      /data-node="p1-frame"[^>]*><div data-lead="t"[^>]*><p>미리보기 안내<\/p><\/div>/,
     )
-    expect(html).not.toContain('data-lead="nowhere"')
+    expect(html).not.toContain('data-lead="seg"')
   })
 })
 

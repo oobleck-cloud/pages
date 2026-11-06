@@ -8,6 +8,7 @@ import {
   scopeOf,
   splitRef,
 } from '@oobleck/pages'
+import { Fragment } from 'react'
 
 import { placementStyle, vspace } from './layout'
 
@@ -97,7 +98,7 @@ type Env<C> = {
   space: (n: number) => string
   /** 화면 바탕 — 붙어 있는 틀(pin)이 아래 글을 가린다. */
   surface: string | undefined
-  /** 틀 칸 id → 그 칸 맨 앞에 끼우는 호스트 내용. */
+  /** 노드 id → 그 노드 바로 앞에 끼우는 호스트 내용. */
   lead: Readonly<Record<string, ReactNode>> | undefined
 }
 
@@ -162,13 +163,15 @@ function NodeView<C>({
             opacity: visible ? undefined : 0.4,
           }}
         >
-          {env.lead?.[node.id] !== undefined ? (
-            <div data-lead={node.id} style={{ alignSelf: 'stretch' }}>
-              {env.lead[node.id]}
-            </div>
-          ) : null}
           {node.children.map((c) => (
-            <NodeView key={c.id} node={c} env={env} parentDir={node.dir} />
+            <Fragment key={c.id}>
+              {env.lead?.[c.id] !== undefined ? (
+                <div data-lead={c.id} style={{ alignSelf: 'stretch' }}>
+                  {env.lead[c.id]}
+                </div>
+              ) : null}
+              <NodeView node={c} env={env} parentDir={node.dir} />
+            </Fragment>
           ))}
         </div>
       )
@@ -284,8 +287,8 @@ export function ScreenView<C>({
   /** 낮은 화면에서 세로 간격을 높이에 비례해 줄인다(시안 장). 끄면 적은 px 그대로. 기본 참. */
   fit?: boolean | undefined
   /**
-   * 틀 칸 id → 그 칸 맨 앞에 끼우는 호스트 내용(미리보기 안내 · 마감 안내 등). 문서에 없는 것이라 편집기에 잡히지 않고,
-   * 비어 있는(null · false) 값은 끼우지 않는다.
+   * 노드 id → 그 노드 바로 앞(같은 부모 안)에 끼우는 호스트 내용(미리보기 안내 · 마감 안내 등). 문서에 없는 것이라
+   * 편집기에 잡히지 않고, 비어 있는(null · false) 값은 끼우지 않는다. 가운데 정렬한 칸 앞에 두면 칸의 정렬에 휩쓸리지 않는다.
    */
   lead?: Readonly<Record<string, ReactNode>> | undefined
 }): ReactNode {

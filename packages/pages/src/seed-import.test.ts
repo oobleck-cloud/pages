@@ -52,8 +52,18 @@ describe('seedToPages', () => {
               name: 'p1 · 장',
               layoutMode: 'VERTICAL',
               children: [
-                { id: 'a', type: 'INSTANCE', componentId: 'c-list', componentPropertyAssignments: { 'qid#1': 'q1' } },
-                { id: 'b', type: 'INSTANCE', componentId: 'i-num', componentPropertyAssignments: { 'qid#1': 'q2' } },
+                {
+                  id: 'a',
+                  type: 'INSTANCE',
+                  componentId: 'c-list',
+                  componentPropertyAssignments: { 'qid#1': 'q1' },
+                },
+                {
+                  id: 'b',
+                  type: 'INSTANCE',
+                  componentId: 'i-num',
+                  componentPropertyAssignments: { 'qid#1': 'q2' },
+                },
               ],
             },
           ],

@@ -24,6 +24,49 @@ function clone<T>(v: T): T {
 describe('seedToPages', () => {
   const { pages, problems } = seedToPages(SEED)
 
+  it('변형 이름이 여러 속성이어도(「배치=목록, 물음 숨기기=false」) 값을 읽고, 입력 「수」를 숫자로 본다', () => {
+    const set = (name: string, variants: Array<[string, string]>) => ({
+      id: `set-${name}`,
+      type: 'COMPONENT_SET',
+      name,
+      componentPropertyDefinitions: [{ id: 'qid#1', name: '질문 ID', defaultValue: 'k' }],
+      children: variants.map(([id, n]) => ({ id, type: 'COMPONENT', name: n })),
+    })
+    const doc = {
+      schema: 'seed-design/document',
+      pages: [
+        {
+          id: 'lib',
+          internalOnly: true,
+          children: [
+            set('question-choice', [['c-list', '배치=목록, 물음 숨기기=false']]),
+            set('question-input', [['i-num', '종류=수, 물음 숨기기=true']]),
+          ],
+        },
+        {
+          id: 'pg',
+          children: [
+            {
+              id: 'f1',
+              type: 'FRAME',
+              name: 'p1 · 장',
+              layoutMode: 'VERTICAL',
+              children: [
+                { id: 'a', type: 'INSTANCE', componentId: 'c-list', componentPropertyAssignments: { 'qid#1': 'q1' } },
+                { id: 'b', type: 'INSTANCE', componentId: 'i-num', componentPropertyAssignments: { 'qid#1': 'q2' } },
+              ],
+            },
+          ],
+        },
+      ],
+    }
+    const [page] = seedToPages(doc).pages
+    expect(layoutQuestions(page!.layout)).toEqual([
+      expect.objectContaining({ qid: 'q1', component: 'question-choice', variant: 'list' }),
+      expect.objectContaining({ qid: 'q2', component: 'question-input', variant: 'number' }),
+    ])
+  })
+
   it('페이지 프레임 하나가 장 하나 — 이름 「id · 이름」을 읽는다', () => {
     expect(problems).toEqual([])
     expect(pages.map((p) => [p.id, p.name])).toEqual([['liability', '질문1 영업배상']])

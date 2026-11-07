@@ -240,10 +240,10 @@ export function questionStubFor(
 // ── 안 ──────────────────────────────────────────────────────────────────
 
 type SeedIndex = {
-  /** 부품 정의 id → 부품 이름 · 변형 값 · 속성 기본값. */
+  /** 부품 정의 id → 부품 이름 · 변형 값(속성 이름 → 값) · 속성 기본값. */
   components: Map<
     string,
-    { name: string; variant: string | null; defaults: Record<string, unknown> }
+    { name: string; variants: Record<string, string>; defaults: Record<string, unknown> }
   >
   /** 글자 스타일 노드 id → 스타일 이름. */
   textStyles: Map<string, string>
@@ -260,7 +260,7 @@ function indexSeed(doc: SeedDoc): SeedIndex {
       const defs = (set ?? n).componentPropertyDefinitions ?? []
       components.set(n.id, {
         name: set?.name ?? n.name ?? '',
-        variant: set ? (n.name ?? '').split('=').slice(1).join('=') || null : null,
+        variants: set ? variantsOf(n.name ?? '') : {},
         defaults: Object.fromEntries(defs.map((d) => [d.id, d.defaultValue])),
       })
     }
@@ -276,6 +276,16 @@ function indexSeed(doc: SeedDoc): SeedIndex {
     if (slash !== -1) variables.set(v.id.slice(slash + 1), v.name)
   }
   return { components, textStyles, variables }
+}
+
+/** 변형 이름 「종류=글, 물음 숨기기=false」 → { 종류: '글', '물음 숨기기': 'false' }. */
+function variantsOf(name: string): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const part of name.split(',')) {
+    const eq = part.indexOf('=')
+    if (eq !== -1) out[part.slice(0, eq).trim()] = part.slice(eq + 1).trim()
+  }
+  return out
 }
 
 function isPageFrame(n: SeedNode): boolean {
@@ -433,7 +443,12 @@ function convertInstance(n: SeedNode, ctx: SeedIndex): LayoutNode {
         kind: 'part',
         part: 'button',
         label: str('label#1'),
-        variant: def.variant === '보조' ? 'secondary' : def.variant === '글자' ? 'text' : 'primary',
+        variant:
+          def.variants['종류'] === '보조'
+            ? 'secondary'
+            : def.variants['종류'] === '글자'
+              ? 'text'
+              : 'primary',
       }
     case 'chip':
       return { ...at, kind: 'part', part: 'chip', text: str('t#1') }
@@ -443,13 +458,13 @@ function convertInstance(n: SeedNode, ctx: SeedIndex): LayoutNode {
       const component = def.name as LayoutQuestionPart['component']
       const variant =
         component === 'question-choice'
-          ? def.variant === '목록'
+          ? def.variants['배치'] === '목록'
             ? 'list'
             : 'tiles'
           : component === 'question-input'
-            ? def.variant === '숫자'
+            ? def.variants['종류'] === '수' || def.variants['종류'] === '숫자'
               ? 'number'
-              : def.variant === '여러 줄'
+              : def.variants['종류'] === '여러 줄'
                 ? 'multiline'
                 : 'text'
             : undefined
